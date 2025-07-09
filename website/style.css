@@ -49,3 +49,13 @@ h1 {
     color: #F5E8C7;
     font-size: 60pt;
 }
+#container {
+    display: flex;
+    flex-direction: row;
+}
+#algorithm_form {
+    font-size: 20pt;
+}
+#algorihm_choose_header {
+    
+}
