@@ -9,7 +9,7 @@ import {HoldRightStrategy} from "../strategies/hold_right.js";
 function test() {
     const strategy = new HoldRightStrategy()
     const labyrinth = generator.generateDfs(11)
-    console.log(solver.solve(strategy, labyrinth))
+    console.log(solver.solve(labyrinth, strategy))
 }
 
 test()

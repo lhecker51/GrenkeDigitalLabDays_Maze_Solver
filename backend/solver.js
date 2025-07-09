@@ -3,7 +3,7 @@
 import {Environment, Position} from "./utils.js";
 
 export class solver {
-    static solve(strategy, labyrinth) {
+    static solve(labyrinth, strategy) {
         const path = [];
         let position = this.getStartingPosition(labyrinth);
 
