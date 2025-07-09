@@ -1,27 +1,24 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.HoldWallStrategy = void 0;
-const util_1 = require("../util");
-class HoldWallStrategy extends util_1.Strategy {
+
+import {Strategy} from "../backend/utils.js";
+
+export class HoldWallStrategy extends Strategy {
     constructor() {
-        super(...arguments);
+        super();
         this.previousDirection = "U";
     }
-    getDirection(environment) {
+
+    getDirection(environment) {  // TODO fix, doesn't work
         if (this.checkDirection(environment, this.getNecessaryDirection())) {
             this.previousDirection = this.getNecessaryDirection();
             return this.previousDirection;
-        }
-        else {
+        } else {
             this.previousDirection = this.getNecessaryDirection();
             return this.getDirection(environment);
         }
     }
-    checkDirection(environment, direction) {
-        return environment.get(direction) != 'X';
-    }
+
     getPreviousDirection() {
         return this.previousDirection;
     }
 }
-exports.HoldWallStrategy = HoldWallStrategy;

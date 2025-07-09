@@ -1,6 +1,6 @@
 
 
-import { generatorWrapper } from "../generator/wrapper.js"
+import { generatorWrapper } from "../../generator/wrapper.js"
 import { Path, Labyrinth, Strategy } from "../util"
 import { RandomStrategy } from "../strategies/random"
 import { HoldLeftStrategy } from "../strategies/HoldLeftStrategy.js"

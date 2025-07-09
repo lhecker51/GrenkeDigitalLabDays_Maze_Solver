@@ -1,12 +1,13 @@
-import { solver } from "../solver/solver"
-import { RandomStrategy } from "../strategies/random"
-import { generator } from "../generator/generator"
+import { solver } from "../backend/solver.js"
+import { generator } from "../generator/generator.js"
+import { RandomStrategy } from "../strategies/random.js"
+import {HoldLeftStrategy} from "../strategies/hold_left.js";
+import {HoldRightStrategy} from "../strategies/hold_right.js";
 
 function test() {
-    strategy = new RandomStrategy()
-    labyrinth = generator.generateDfs()
+    const strategy = new HoldRightStrategy()
+    const labyrinth = generator.generateDfs(11)
     console.log(solver.solve(strategy, labyrinth))
-
 }
 
 test()

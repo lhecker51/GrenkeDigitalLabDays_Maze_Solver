@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.HoldLeftStrategy = void 0;
-const HoldWallStrategy_1 = require("./HoldWallStrategy");
+const HoldWallStrategy_1 = require("./HoldWallStrategy.js");
 class HoldLeftStrategy extends HoldWallStrategy_1.HoldWallStrategy {
     getNecessaryDirection() {
         switch (super.getPreviousDirection()) {

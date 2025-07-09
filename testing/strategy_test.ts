@@ -1,7 +1,7 @@
 import { generatorWrapper } from "../generator/wrapper.js"
-import { Path, Labyrinth, Strategy } from "../util"
-import { RandomStrategy } from "../strategies/random"
-import { solver } from "../solver/solver"
+import { Path, Labyrinth, Strategy } from "../typescript_old/util"
+import { RandomStrategy } from "../typescript_old/strategies/random"
+import { solver } from "../typescript_old/solver/solver"
 
 class test {
     static test() {
