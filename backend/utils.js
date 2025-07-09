@@ -17,13 +17,13 @@ export class Environment {
 }
 
 export class Strategy {
-     getNextMove(environment) {
+     getDirection(environment) {
         if (environment.u === 'E') return 'U'
         if (environment.d === 'E') return 'D'
         if (environment.l === 'E') return 'L'
         if (environment.r === 'E') return 'R'
 
-        return this.getDirection(environment);
+        return this.calculateDirection(environment)
     }
 
     checkDirection(environment, direction) {

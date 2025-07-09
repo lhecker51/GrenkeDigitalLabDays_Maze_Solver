@@ -8,13 +8,13 @@ export class HoldWallStrategy extends Strategy {
         this.previousDirection = "U";
     }
 
-    getDirection(environment) {  // TODO fix, doesn't work
+    calculateDirection(environment) {  // TODO fix, doesn't work
         if (this.checkDirection(environment, this.getNecessaryDirection())) {
             this.previousDirection = this.getNecessaryDirection();
             return this.previousDirection;
         } else {
             this.previousDirection = this.getNecessaryDirection();
-            return this.getDirection(environment);
+            return this.calculateDirection(environment);
         }
     }
 

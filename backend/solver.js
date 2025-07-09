@@ -9,7 +9,7 @@ export class solver {
 
         while (labyrinth[position.y][position.x] !== 'E') {
             let environment = this.getEnvironment(labyrinth, position);
-            let direction = strategy.getNextMove(environment);
+            let direction = strategy.getDirection(environment);
             position = this.adjustPosition(position, direction);
             path.push(direction);
         }
