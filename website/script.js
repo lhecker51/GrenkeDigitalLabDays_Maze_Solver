@@ -13,10 +13,6 @@ function visualizePattern(field, path = null) {
         currentMaze = field;
         const rows = field.length;
         const cols = field[0].length;
-<<<<<<< HEAD
-        const cellSize = calculateCellSize(container, rows, cols);
-        
-=======
 
         // Configuration
         const minCellSize = 20;
@@ -38,7 +34,6 @@ function visualizePattern(field, path = null) {
         cellSize = Math.max(minCellSize, Math.min(maxCellSize, cellSize));
 
         // Set canvas dimensions
->>>>>>> e54e559557178ee7acdb13700aa20487ef021db0
         canvas.width = cols * cellSize;
         canvas.height = rows * cellSize;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -145,14 +140,9 @@ document.getElementById('generate-btn').addEventListener('click', function() {
     }
     
     try {
-<<<<<<< HEAD
         const maze = Generator.generateDfs(size); // Use Generator directly
         currentMaze = maze; // Store the current maze
         solutionPath = null; // Clear any previous solution
-=======
-        const maze = generator.generateKruskal(size);
-        window.lastMaze = maze; // Store for resize handling
->>>>>>> e54e559557178ee7acdb13700aa20487ef021db0
         visualizePattern(maze);
     } catch (err) {
         document.getElementById('error').textContent = `Error: ${err.message}`;
