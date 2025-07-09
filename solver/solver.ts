@@ -5,15 +5,10 @@ export class solver {
         const path: Path = []
         let position: Position = this.getStartingPosition(labyrinth)
 
-        let xPos: number = position.x
-        let yPos: number = position.y
-
-        while (labyrinth[yPos][xPos] !== 'E') {
+        while (labyrinth[position.y][position.y] !== 'E') {
             let environment: Environment = this.getEnvironment(labyrinth, position)
             let direction: Direction = strategy.getNextMove(environment)
             position = this.adjustPosition(position, direction)
-            xPos = position.x
-            yPos = position.y
             path.push(direction)
         }
 

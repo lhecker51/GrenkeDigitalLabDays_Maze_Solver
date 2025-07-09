@@ -13,27 +13,39 @@
 
 <body>
     <h1>Maze Solver</h1>
-    <div>
-        <label for="maze-size">Maze Size (odd number ≥5):</label>
-        <input type="number" id="maze-size" min="5" step="2" value="21">
-        <button id="generate-btn">Generate Maze</button>
+    <div id="container_generator">
+        <fieldset>
+            <legend>Settings Maze Generator</legend>
+            <select>
+                <option>Option 1</option>
+                <option>Option 2</option>
+                <option>Option 3</option>
+            </select>
+            <label for="maze-size">Maze Size (odd number ≥5):</label>
+            <input type="number" id="maze-size" min="5" step="2" value="21">
+            <button id="generate-btn">Generate Maze</button>
+        </fieldset>
     </div>
-    <div id="container">
+    <div id="container_algorithm">
         <form name="Algorithm_chooser" id="algorithm_form">
-            <fieldset>
-                <legend id="algorithm_choose_header">Algorithm Types:</legend>
-                <input type="checkbox">Option 1
-                <br>
-                <input type="checkbox">Option 2
-                <br>
-                <input type="checkbox">Option 3
-                <br>
-                <input type="checkbox">Option 4
-                <br>
-                <input id="solve-btn" type="submit">
-                <input id="clear-btn" type="reset">
-            </fieldset>
-        </form>
+    <fieldset id="choose_algorithm">
+        <legend id="algorithm_choose_header">Algorithm Types:</legend>
+        <input type="checkbox" name="algorithm" value="LeftHand" id="left-hand"> 
+        <label for="left-hand">Left Hand Rule</label>
+        <br>
+        <input type="checkbox" name="algorithm" value="RightHand" id="right-hand">
+        <label for="right-hand">Right Hand Rule</label>
+        <br>
+        <input type="checkbox" name="algorithm" value="RandomWalk" id="random-walk">
+        <label for="random-walk">Random Walk</label>
+        <br>
+        <input type="checkbox" name="algorithm" value="ShortestPath" id="shortest-path">
+        <label for="shortest-path">Shortest Path</label>
+        <br>
+        <button id="solve-btn" type="button">Solve Maze</button>
+        <button id="clear-btn" type="button">Clear Solutions</button>
+    </fieldset>
+</form>
         <div id="controls">
             <p id="error"></p>
         </div>
