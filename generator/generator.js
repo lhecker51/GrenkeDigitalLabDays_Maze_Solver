@@ -33,7 +33,7 @@ class UnionFind {
     }
 }
 
-class generator {
+export class generator {
     static pregenField(n) {
         if (!(n % 2)) {
             throw new Error("The given n has to be uneven.");
@@ -129,6 +129,7 @@ class generator {
         const visited = Array.from({ length: gridsize }, () => Array(gridsize).fill(false))
         let coords = [Math.floor(Math.random() * gridsize), Math.floor(Math.random() * gridsize)]
         visited[coords[0]][coords[1]] = true;
+        console.log(coords)
 
 
         let remaining = Array.from({ length: gridsize * gridsize }, (_, i) => [Math.floor(i / gridsize), i % gridsize]);
@@ -139,12 +140,13 @@ class generator {
             let cur = remaining[0]
             let path = [cur]
             const dirs = [[-1, 0], [0, -1], [1, 0], [0, 1]]
-            while (!visited[path[path.length - 1][0]][path[path.length - 1][1]]) {
+            while (!visited[cur[0]][cur[1]]) {
                 let next = []
                 do {
                     let dir = dirs[Math.floor(Math.random() * 4)]
                     next = [cur[0] + dir[0], cur[1] + dir[1]]
                 } while (next[0] < 0 || next[0] >= gridsize || next[1] < 0 || next[1] >= gridsize)
+                console.log(coords, cur, next)
                 for (let i = 0; i < path.length; i++) {
                     if (path[i] = next) {
                         path = path.splice(i)
@@ -178,4 +180,5 @@ class generator {
         }
     }
 }
+//generator.generateWilson(11);
 console.log()
