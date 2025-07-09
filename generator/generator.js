@@ -125,45 +125,56 @@ export class generator {
 
     static generateWilson(n) {
         const field = this.pregenField(n);
-        let gridsize = Math.floor(n / 2);
-        const visited = Array.from({ length: gridsize }, () => Array(gridsize).fill(false))
-        let coords = [Math.floor(Math.random() * gridsize), Math.floor(Math.random() * gridsize)]
-        visited[coords[0]][coords[1]] = true;
-        console.log(coords)
+        const gridsize = Math.floor(n / 2);
+        const visited = Array.from({ length: gridsize }, () => Array(gridsize).fill(false));
+        const edges = [];
 
+        let coords = [Math.floor(Math.random() * gridsize), Math.floor(Math.random() * gridsize)];
+        visited[coords[0]][coords[1]] = true;
 
         let remaining = Array.from({ length: gridsize * gridsize }, (_, i) => [Math.floor(i / gridsize), i % gridsize]);
-        remaining = this.shuffle(remaining)
-        remaining = remaining.filter(item => item !== coords);
+        remaining = this.shuffle(remaining);
+        remaining = remaining.filter(item => !(item[0] === coords[0] && item[1] === coords[1]));
+
+        const dirs = [[-1, 0], [0, -1], [1, 0], [0, 1]];
 
         while (remaining.length) {
-            let cur = remaining[0]
-            let path = [cur]
-            const dirs = [[-1, 0], [0, -1], [1, 0], [0, 1]]
+            let cur = remaining[0].slice();
+            let path = [cur.slice()];
+
             while (!visited[cur[0]][cur[1]]) {
-                let next = []
-                do {
-                    let dir = dirs[Math.floor(Math.random() * 4)]
-                    next = [cur[0] + dir[0], cur[1] + dir[1]]
-                } while (next[0] < 0 || next[0] >= gridsize || next[1] < 0 || next[1] >= gridsize)
-                console.log(coords, cur, next)
-                for (let i = 0; i < path.length; i++) {
-                    if (path[i] = next) {
-                        path = path.splice(i)
-                    }
+                const dir = dirs[Math.floor(Math.random() * 4)];
+                const next = [cur[0] + dir[0], cur[1] + dir[1]];
+                if (next[0] < 0 || next[0] >= gridsize || next[1] < 0 || next[1] >= gridsize) continue;
+
+                const prevIndex = path.findIndex(p => p[0] === next[0] && p[1] === next[1]);
+                if (prevIndex !== -1) {
+                    path = path.slice(0, prevIndex + 1);
+                } else {
+                    path.push(next.slice());
                 }
-                path.push(next)
-                cur = next
+                cur = next;
             }
+
             for (let i = 0; i < path.length; i++) {
-                visited[path[i][0]][path[i][1]] = true
+                visited[path[i][0]][path[i][1]] = true;
+                if (i > 0) edges.push([[path[i - 1][0], path[i - 1][1]], [path[i][0], path[i][1]]]);
             }
-            remaining = remaining.filter(item => !path.includes(item));
+
+            remaining = remaining.filter(item =>
+                !path.some(p => p[0] === item[0] && p[1] === item[1])
+            );
+        }
+
+        for (let edge of edges) {
+            field[1 + edge[0][0] + edge[1][0]][1 + edge[0][1] + edge[1][1]] = ' '
         }
 
         this.printField(field);
         return field;
     }
+
+
 
     static shuffle(array) {
         for (let i = array.length - 1; i > 0; i--) {
