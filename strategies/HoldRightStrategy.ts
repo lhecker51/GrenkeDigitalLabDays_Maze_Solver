@@ -1,7 +1,7 @@
-import {Direction} from "../util";
-import {HoldWallStrategy} from "./HoldWallStrategy";
+import { Direction } from "../util";
+import { HoldWallStrategy } from "./HoldWallStrategy";
 
-export class HoldRightStrategy extends HoldWallStrategy  {
+export class HoldRightStrategy extends HoldWallStrategy {
     getNecessaryDirection(): Direction {
         //This is a test, I don't know what's going on exactly lol
         switch (super.getPreviousDirection()) {

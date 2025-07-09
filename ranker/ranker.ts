@@ -13,7 +13,7 @@ class ranker {
         const strategies: Strategy[] = []
 
         for (let i: number = 0; i < 10; i++) {
-            labyrinths.push(<Labyrinth> generator.generateDfs(11))
+            labyrinths.push(<Labyrinth>generator.generateDfs(11))
         }
 
         strategies.push(new RandomStrategy())
