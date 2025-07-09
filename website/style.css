@@ -52,10 +52,13 @@ h1 {
 #container {
     display: flex;
     flex-direction: row;
+    margin-top: 10%;
+    justify-content: center;
+    width: 100%;
 }
 #algorithm_form {
     font-size: 20pt;
 }
-#algorihm_choose_header {
-    
+#algorithm_choose_header {
+    font-size: 25pt;
 }

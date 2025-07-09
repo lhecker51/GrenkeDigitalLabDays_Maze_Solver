@@ -1,6 +1,6 @@
 import { Position, Square, Direction, Environment, Labyrinth, Path, Strategy } from "../util";
 
-class solver {
+export class solver {
     static solve(strategy: Strategy, labyrinth: Labyrinth): Path {
         const path: Path = []
         let position: Position = this.getStartingPosition(labyrinth)

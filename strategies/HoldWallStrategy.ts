@@ -17,6 +17,10 @@ export abstract class HoldWallStrategy extends Strategy {
         return environment.get(direction) != 'X'
     }
 
+    getPreviousDirection() : Direction {
+        return this.previousDirection
+    }
+
     abstract getNecessaryDirection() : Direction
 
 

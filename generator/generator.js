@@ -33,7 +33,7 @@ class UnionFind {
     }
 }
 
-class generator {
+export class generator {
     static pregenField(n) {
         if (!(n % 2)) {
             throw new Error("The given n has to be uneven.");
