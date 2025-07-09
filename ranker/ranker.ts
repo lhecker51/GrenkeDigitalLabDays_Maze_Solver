@@ -1,6 +1,6 @@
 
 
-import { generator } from "../generator/generator.js"
+import { generatorWrapper } from "../generator/wrapper.js"
 import { Path, Labyrinth, Strategy } from "../util"
 import { RandomStrategy } from "../strategies/random"
 import { HoldLeftStrategy } from "../strategies/HoldLeftStrategy.js"
@@ -13,7 +13,7 @@ class ranker {
         const strategies: Strategy[] = []
 
         for (let i: number = 0; i < 10; i++) {
-            labyrinths.push(<Labyrinth>generator.generateDfs(11))
+            labyrinths.push(<Labyrinth>generatorWrapper.generateDFSLabyrinth(11))
         }
 
         strategies.push(new RandomStrategy())
