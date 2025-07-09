@@ -3,7 +3,7 @@ import {HoldWallStrategy} from "./HoldWallStrategy";
 
 class HoldRightStrategy extends HoldWallStrategy  {
     getNecessaryDirection(): Direction {
-        switch (super.previousDirection) {
+        switch (super.getPreviousDirection()) {
             case "U": return "R"
             case "R": return "D"
             case "L": return "U"
