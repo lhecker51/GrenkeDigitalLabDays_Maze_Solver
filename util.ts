@@ -1,4 +1,8 @@
-export type Position = { x: number, y: number }
+export class Position { 
+    x: number = 0
+    y: number = 0
+}
+
 export type Square = 'X' | ' ' | 'S' | 'E'
 export type Direction = 'U' | 'D' | 'L' | 'R'
 export type Environment = Map<Direction, Square>

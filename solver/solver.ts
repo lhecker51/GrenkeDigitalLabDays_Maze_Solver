@@ -5,6 +5,9 @@ export class solver {
         const path: Path = []
         let position: Position = this.getStartingPosition(labyrinth)
 
+        let xPos: number = position.x
+        let yPos: number = position.y
+
         while (labyrinth[position.y][position.x] !== 'E') {
             let environment: Environment = this.getEnvironment(labyrinth, position)
             let direction: Direction = strategy.getNextMove(environment)
