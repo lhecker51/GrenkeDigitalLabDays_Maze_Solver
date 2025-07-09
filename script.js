@@ -151,7 +151,7 @@ document.getElementById('generate-btn').addEventListener('click', function () {
     }
 
     try {
-        const maze = Generator.generateDfs(size);
+        const maze = Generator.generateKruskal(size);
         window.lastMaze = maze; // Store for resize handling
         visualizePattern(maze);
     } catch (err) {
