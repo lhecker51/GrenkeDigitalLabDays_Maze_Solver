@@ -1,7 +1,7 @@
-import {Direction, Environment, Strategy} from "../util";
+import { Direction, Environment, Strategy } from "../util";
 
 export abstract class HoldWallStrategy extends Strategy {
-    previousDirection : Direction = "U"
+    previousDirection: Direction = "U"
 
     getDirection(environment: Environment): Direction {
         if (this.checkDirection(environment, this.getNecessaryDirection())) {
@@ -13,15 +13,15 @@ export abstract class HoldWallStrategy extends Strategy {
         }
     }
 
-    checkDirection(environment: Environment, direction: Direction) : boolean {
+    checkDirection(environment: Environment, direction: Direction): boolean {
         return environment.get(direction) != 'X'
     }
 
-    getPreviousDirection() : Direction {
+    getPreviousDirection(): Direction {
         return this.previousDirection
     }
 
-    abstract getNecessaryDirection() : Direction
+    abstract getNecessaryDirection(): Direction
 
 
 

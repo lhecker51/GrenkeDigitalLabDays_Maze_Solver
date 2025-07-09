@@ -60,7 +60,7 @@ function visualizePattern(field) {
     const container = document.getElementById('canvas-container');
     const errorEl = document.getElementById('error');
     errorEl.textContent = "";
-    
+
     try {
         if (!field || field.length === 0) throw new Error("No maze data provided");
         
@@ -136,10 +136,10 @@ window.addEventListener('resize', function() {
 });
 
 // Handle generate button click
-document.getElementById('generate-btn').addEventListener('click', function() {
+document.getElementById('generate-btn').addEventListener('click', function () {
     const sizeInput = document.getElementById('maze-size');
     let size = parseInt(sizeInput.value);
-    
+
     // Ensure size is odd and ≥5
     if (size % 2 === 0) {
         size++; // Make it odd
@@ -149,9 +149,9 @@ document.getElementById('generate-btn').addEventListener('click', function() {
         size = 5;
         sizeInput.value = 5;
     }
-    
+
     try {
-        const maze = Generator.generateDfs(size);
+        const maze = generator.generateDfs(size);
         window.lastMaze = maze; // Store for resize handling
         visualizePattern(maze);
     } catch (err) {
