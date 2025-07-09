@@ -33,7 +33,7 @@ class UnionFind {
     }
 }
 
-class generator {
+export class generator {
     static pregenField(n) {
         if (!(n % 2)) {
             throw new Error("The given n has to be uneven.");
@@ -121,6 +121,17 @@ class generator {
 
         this.printField(field)
         return field;
+    }
+
+    static generateWilson(n) {
+        const field = this.pregenField(n);
+        let gridsize = Math.floor(n / 2);
+        const visited = Array.from({ length: gridsize }, () => Array(gridsize).fill(false))
+        visited[Math.floor(Math.random() * gridsize)][Math.floor(Math.random() * gridsize)] = true;
+
+        let remaining = Array.from({ length: gridsize * gridsize }, (_, i) => [Math.floor(i / gridsize), i % gridsize]);
+        remaining = this.shuffle(remaining)
+
     }
 
     static shuffle(array) {
