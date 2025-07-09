@@ -33,7 +33,7 @@ class UnionFind {
     }
 }
 
-export class generator {
+class generator {
     static pregenField(n) {
         if (!(n % 2)) {
             throw new Error("The given n has to be uneven.");
@@ -127,11 +127,19 @@ export class generator {
         const field = this.pregenField(n);
         let gridsize = Math.floor(n / 2);
         const visited = Array.from({ length: gridsize }, () => Array(gridsize).fill(false))
-        visited[Math.floor(Math.random() * gridsize)][Math.floor(Math.random() * gridsize)] = true;
+        let coords = [Math.floor(Math.random() * gridsize), Math.floor(Math.random() * gridsize)]
+        visited[coords[0]][coords[1]] = true;
+
 
         let remaining = Array.from({ length: gridsize * gridsize }, (_, i) => [Math.floor(i / gridsize), i % gridsize]);
         remaining = this.shuffle(remaining)
+        remaining = remaining.filter(item => item !== coords);
 
+        while (remaining.length) {
+            let cur = remaining[0]
+            let path = [cur]
+            let lastDir = ''
+        }
     }
 
     static shuffle(array) {
