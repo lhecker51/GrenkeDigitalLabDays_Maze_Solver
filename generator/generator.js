@@ -1,9 +1,11 @@
 class generator {
-    static generate(n) {
+    static pregenField(n) {
         if (!(n % 2)) {
             throw new Error("n has to be uneven");
         }
-        let gridsize = Math.floor(n / 2);
+        if (n < 5) {
+            throw new Error("n has to be at least 5");
+        }
         const field = []
         for (let i = 0; i < n; i++) {
             const row = []
@@ -12,6 +14,12 @@ class generator {
             }
             field.push(row)
         }
+        return field
+    }
+
+    static generateDfs(n) {
+        let field = this.pregenField(n)
+        let gridsize = Math.floor(n / 2);
         const visited = Array.from({ length: gridsize }, () => Array(gridsize).fill(false))
         let stack = []
         stack.push([0, 0])
@@ -34,12 +42,34 @@ class generator {
                 }
             }
         }
+        field[1][1] = 'S';
+        field[n - 2][n - 2] = 'E'
         this.printField(field);
+        return field;
     }
+
+    static generateKruskal(n) {
+        let field = this.pregenField(n)
+        let gridsize = Math.floor(n / 2);
+        const unions = []
+        for (let i = 0; i < gridsize * gridsize; i++) {
+            unions.push(i)
+        }
+        const walls = []
+        for (let i = 0; i < gridsize - 1; i++) {
+            for (let j = 0; j < gridsize - 1; j++) {
+                walls.push([i, j, 'R'])
+                walls.push([i, j, 'D'])
+            }
+        }
+
+    }
+
     static printField(field) {
         for (let row of field) {
-            console.log(row.join(' '));
+            console.log(row.join(''));
         }
     }
 }
-generator.generate(51)
+generator.generateDfs(51)
+console.log()
