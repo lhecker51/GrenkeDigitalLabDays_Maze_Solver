@@ -1,5 +1,7 @@
+import { Square, Direction, Environment, Labyrinth, Path, Strategy } from "./util";
+
 class solver {
-    static solve(labyrinth: Labyrinth): Path {
+    static solve(strategy: Strategy, labyrinth: Labyrinth): Path {
         return [];
     }
 }
