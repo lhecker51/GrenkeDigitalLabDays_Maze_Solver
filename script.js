@@ -68,9 +68,9 @@ function visualizePattern(field) {
         const cols = field[0].length;
 
         // Configuration
-        const minCellSize = 25;
+        const minCellSize = 12;
         const preferredCellSize = 40;
-        const maxCellSize = 100;
+        const maxCellSize = 50;
 
         // Calculate available space (with padding)
         const availableWidth = container.clientWidth - 40;
@@ -80,7 +80,7 @@ function visualizePattern(field) {
         let cellSize = Math.min(
             availableWidth / cols,
             availableHeight / rows,
-            preferredCellSize
+            //preferredCellSize
         );
 
         // Enforce size constraints
