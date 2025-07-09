@@ -63,19 +63,20 @@ class generator {
         visited[0][0] = true
         while (stack.length) {
             let cur = stack.pop()
-            const deltas = [[-1, 0], [0, -1], [1, 0], [0, 1]]
+            let deltas = [[-1, 0], [0, -1], [1, 0], [0, 1]]
+            deltas = this.shuffle(deltas)
             let neig = cur
-            while (deltas.length > 0) {
-                let nextDid = Math.floor(Math.random() * deltas.length)
-                const [delta] = deltas.splice(nextDid, 1)
+            for (const delta of deltas) {
                 neig = [cur[0] + delta[0], cur[1] + delta[1]]
                 if (neig[0] < 0 || neig[0] >= gridsize || neig[1] < 0 || neig[1] >= gridsize) {
                     continue
                 }
                 if (!visited[neig[0]][neig[1]]) {
+                    stack.push(cur)
                     stack.push(neig)
                     visited[neig[0]][neig[1]] = true
                     field[2 * cur[0] + 1 + delta[0]][2 * cur[1] + 1 + delta[1]] = ' '
+                    break
                 }
             }
         }
@@ -137,5 +138,5 @@ class generator {
         }
     }
 }
-generator.generateKruskal(51)
+generator.generateDfs(51)
 console.log()
