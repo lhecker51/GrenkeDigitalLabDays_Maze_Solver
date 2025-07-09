@@ -140,7 +140,7 @@ document.getElementById('generate-btn').addEventListener('click', function() {
     }
     
     try {
-        const maze = Generator.generateDfs(size); // Use Generator directly
+        const maze = generator.generateDfs(size); // Use Generator directly
         currentMaze = maze; // Store the current maze
         solutionPath = null; // Clear any previous solution
         visualizePattern(maze);
