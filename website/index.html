@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="style.css" type="text/css">
         <script src="script.js" defer></script>
         <script src="../generator/generator.js" defer></script>
+        <script src="../solver/solver.ts" defer></script>
     </head>
     <body>
         <h1>Maze Solver</h1>
@@ -15,11 +16,10 @@
             <input type="number" id="maze-size" min="5" step="2" value="21">
             <button id="generate-btn">Generate Maze</button>
         </div>
-        <h2 id="algorithm_choose_header">Choose your preferred Algorithm-Type</h2>
         <div id="container">
-            <form name="Algorithm_chooser" id="algorithm_form">
+            <form name="Algorithm_chooser" id="algorithm_form" >
                 <fieldset>
-                    <legend>Algorithm Types:</legend>
+                    <legend id="algorithm_choose_header">Algorithm Types:</legend>
                     <input type="checkbox">Option 1
                     <br>
                     <input type="checkbox">Option 2
@@ -28,8 +28,8 @@
                     <br>
                     <input type="checkbox">Option 4
                     <br>
-                    <input type="submit">
-                    <input type="reset"> 
+                    <input id="solve-btn">
+                    <input id="clear-btn"> 
                 </fieldset>
             </form>
             <div id="controls">
