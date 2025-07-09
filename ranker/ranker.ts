@@ -1,0 +1,3 @@
+class ranker {
+    
+}
