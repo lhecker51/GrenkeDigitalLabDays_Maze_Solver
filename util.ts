@@ -17,5 +17,5 @@ export abstract class Strategy {
         return this.getDirection(environment)
     }
 
-    abstract getDirection(environment: Environment): Direction
+    protected abstract getDirection(environment: Environment): Direction
 }
