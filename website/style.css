@@ -26,7 +26,7 @@ h1 {
     max-width: 95vw;
     max-height: 80vh;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
 }
 canvas {
@@ -49,16 +49,23 @@ h1 {
     color: #F5E8C7;
     font-size: 60pt;
 }
-#container {
+#container_algorithm {
     display: flex;
     flex-direction: row;
     margin-top: 10%;
     justify-content: center;
     width: 100%;
 }
+#container_generator {
+    display: flex;
+    flex-direction: column;
+}
 #algorithm_form {
     font-size: 20pt;
 }
 #algorithm_choose_header {
     font-size: 25pt;
+}
+#choose_algorithm {
+    background-color: grey;
 }
