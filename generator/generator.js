@@ -65,7 +65,7 @@ class generator {
             let cur = stack.pop()
             const deltas = [[-1, 0], [0, -1], [1, 0], [0, 1]]
             let neig = cur
-            while (deltas.length) {
+            while (deltas.length > 0) {
                 let nextDid = Math.floor(Math.random() * deltas.length)
                 const [delta] = deltas.splice(nextDid, 1)
                 neig = [cur[0] + delta[0], cur[1] + delta[1]]
@@ -119,6 +119,7 @@ class generator {
         }
 
         this.printField(field)
+        return field;
     }
 
     static shuffle(array) {
