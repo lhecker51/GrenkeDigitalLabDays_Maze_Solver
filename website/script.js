@@ -1,10 +1,10 @@
+let currentMaze = null;
+let solutionPath = null;
 function visualizePattern(field, path = null) {
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
     const container = document.getElementById('canvas-container');
     const errorEl = document.getElementById('error');
-    let currentMaze = null;
-    let solutionPath = null;
     errorEl.textContent = "";
     
     try {
