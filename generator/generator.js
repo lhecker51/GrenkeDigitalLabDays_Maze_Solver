@@ -33,7 +33,7 @@ class UnionFind {
     }
 }
 
-export class generator {
+class generator {
     static pregenField(n) {
         if (!(n % 2)) {
             throw new Error("The given n has to be uneven.");
@@ -138,18 +138,25 @@ export class generator {
         while (remaining.length) {
             let cur = remaining[0]
             let path = [cur]
-            let lastDir = ''
             const dirs = [[-1, 0], [0, -1], [1, 0], [0, 1]]
             while (!visited[path[path.length - 1][0]][path[path.length - 1][1]]) {
-                let dir = dirs[Math.floor(Math.random() * 4)]
-                let next = [cur[0] + dir[0], cur[1] + dir[1]]
+                let next = []
+                do {
+                    let dir = dirs[Math.floor(Math.random() * 4)]
+                    next = [cur[0] + dir[0], cur[1] + dir[1]]
+                } while (next[0] < 0 || next[0] >= gridsize || next[1] < 0 || next[1] >= gridsize)
                 for (let i = 0; i < path.length; i++) {
                     if (path[i] = next) {
                         path = path.splice(i)
                     }
                 }
                 path.push(next)
+                cur = next
             }
+            for (let i = 0; i < path.length; i++) {
+                visited[path[i][0]][path[i][1]] = true
+            }
+            remaining = remaining.filter(item => !path.includes(item));
         }
 
         this.printField(field);
@@ -171,5 +178,4 @@ export class generator {
         }
     }
 }
-generator.generateWilson(11)
 console.log()
