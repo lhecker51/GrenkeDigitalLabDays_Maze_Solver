@@ -8,10 +8,12 @@ export class solver {
         let xPos: number = position.x
         let yPos: number = position.y
 
-        while (labyrinth[position.y][position.x] !== 'E') {
+        while (labyrinth[yPos][xPos] !== 'E') {
             let environment: Environment = this.getEnvironment(labyrinth, position)
             let direction: Direction = strategy.getNextMove(environment)
             position = this.adjustPosition(position, direction)
+            xPos = position.x
+            yPos = position.y
             path.push(direction)
         }
 
@@ -34,12 +36,15 @@ export class solver {
     }
 
     private static getEnvironment(labyrinth: Labyrinth, position: Position): Environment {
+        const xPos: number = position.x
+        const yPos: number = position.y
+
         const environment: Environment = new Map<Direction, Square>()
 
-        environment.set('U', labyrinth[position.y - 1][position.x])
-        environment.set('D', labyrinth[position.y + 1][position.x])
-        environment.set('L', labyrinth[position.y][position.x - 1])
-        environment.set('R', labyrinth[position.y][position.x + 1])
+        environment.set('U', labyrinth[yPos - 1][xPos])
+        environment.set('D', labyrinth[yPos + 1][xPos])
+        environment.set('L', labyrinth[yPos][xPos - 1])
+        environment.set('R', labyrinth[yPos][xPos + 1])
 
         return environment
     }
