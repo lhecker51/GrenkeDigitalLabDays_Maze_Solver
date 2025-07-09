@@ -53,3 +53,9 @@ h1 {
     display: flex;
     flex-direction: row;
 }
+#algorithm_form {
+    font-size: 20pt;
+}
+#algorihm_choose_header {
+    
+}
