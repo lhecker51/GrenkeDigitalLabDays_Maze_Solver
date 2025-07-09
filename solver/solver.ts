@@ -15,9 +15,9 @@ export class solver {
         return path
     }
 
-   private static getStartingPosition(labyrinth: Labyrinth): Position {
-        const startingPosition: Position = {x: 0, y: 0}
-        for(let row of labyrinth) {
+    private static getStartingPosition(labyrinth: Labyrinth): Position {
+        const startingPosition: Position = { x: 0, y: 0 }
+        for (let row of labyrinth) {
             startingPosition.x = 0
             for (let square of row) {
                 if (square === 'S') {
@@ -43,10 +43,10 @@ export class solver {
 
     private static adjustPosition(position: Position, direction: Direction): Position {
         switch (direction) {
-            case "U": return {x: position.x, y: position.y - 1}
-            case "D": return {x: position.x, y: position.y + 1}
-            case "L": return {x: position.x - 1, y: position.y}
-            case "R": return {x: position.x + 1, y: position.y}
+            case "U": return { x: position.x, y: position.y - 1 }
+            case "D": return { x: position.x, y: position.y + 1 }
+            case "L": return { x: position.x - 1, y: position.y }
+            case "R": return { x: position.x + 1, y: position.y }
         }
     }
 }
