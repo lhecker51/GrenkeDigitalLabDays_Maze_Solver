@@ -1,6 +1,11 @@
-export class Position { 
-    x: number = 0
-    y: number = 0
+export class Position {
+    x: number
+    y: number
+
+    constructor(x: number, y: number) {
+        this.x = x
+        this.y = y
+    }
 }
 
 export type Square = 'X' | ' ' | 'S' | 'E'
