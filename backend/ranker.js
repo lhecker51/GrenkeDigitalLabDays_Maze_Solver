@@ -1,10 +1,10 @@
 "use strict";
 
-import {generator} from "../generator/generator.js";
+import {generator} from "./generator.js";
+import {solver} from "./solver.js";
 import {RandomStrategy} from "../strategies/random.js";
 import {HoldLeftStrategy} from "../strategies/hold_left.js";
 import {HoldRightStrategy} from "../strategies/hold_right.js";
-import {solver} from "./solver.js";
 
 class ranker {
     static create_ranking() {

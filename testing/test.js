@@ -1,5 +1,7 @@
+"use strict";
+
+import { generator } from "../backend/generator.js"
 import { solver } from "../backend/solver.js"
-import { generator } from "../generator/generator.js"
 import { RandomStrategy } from "../strategies/random.js"
 import {HoldLeftStrategy} from "../strategies/hold_left.js";
 import {HoldRightStrategy} from "../strategies/hold_right.js";
