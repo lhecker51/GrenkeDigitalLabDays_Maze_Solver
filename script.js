@@ -60,36 +60,36 @@ function visualizePattern(field) {
     const container = document.getElementById('canvas-container');
     const errorEl = document.getElementById('error');
     errorEl.textContent = "";
-    
+
     try {
         if (!field || field.length === 0) throw new Error("No maze data provided");
-        
+
         const rows = field.length;
         const cols = field[0].length;
-        
+
         // Configuration
-        const minCellSize = 25;    
+        const minCellSize = 12;
         const preferredCellSize = 40;
-        const maxCellSize = 100;
-        
+        const maxCellSize = 50;
+
         // Calculate available space (with padding)
         const availableWidth = container.clientWidth - 40;
         const availableHeight = container.clientHeight - 40;
-        
+
         // Calculate cell size that fits available space
         let cellSize = Math.min(
             availableWidth / cols,
             availableHeight / rows,
-            preferredCellSize
+            //preferredCellSize
         );
-        
+
         // Enforce size constraints
         cellSize = Math.max(minCellSize, Math.min(maxCellSize, cellSize));
-        
+
         // Set canvas dimensions
         canvas.width = cols * cellSize;
         canvas.height = rows * cellSize;
-        
+
         // Clear canvas
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -98,19 +98,19 @@ function visualizePattern(field) {
             for (let x = 0; x < cols; x++) {
                 const char = field[y][x];
                 switch (char.toUpperCase()) {
-                    case 'X': 
-                        ctx.fillStyle = '#333'; 
+                    case 'X':
+                        ctx.fillStyle = '#333';
                         break;
-                    case 'S': 
-                        ctx.fillStyle = '#e74c3c'; 
+                    case 'S':
+                        ctx.fillStyle = '#e74c3c';
                         break;
-                    case 'E': 
-                        ctx.fillStyle = '#2ecc71'; 
+                    case 'E':
+                        ctx.fillStyle = '#2ecc71';
                         break;
-                    case ' ': 
-                        ctx.fillStyle = '#fff'; 
+                    case ' ':
+                        ctx.fillStyle = '#fff';
                         break;
-                    default: 
+                    default:
                         ctx.fillStyle = '#ddd'; // Unknown characters
                 }
                 ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
@@ -124,7 +124,7 @@ function visualizePattern(field) {
 }
 
 // Handle window resizing
-window.addEventListener('resize', function() {
+window.addEventListener('resize', function () {
     const canvas = document.getElementById('canvas');
     if (canvas.width > 0 && canvas.height > 0) {
         // Redraw the last maze if one was displayed
@@ -136,10 +136,10 @@ window.addEventListener('resize', function() {
 });
 
 // Handle generate button click
-document.getElementById('generate-btn').addEventListener('click', function() {
+document.getElementById('generate-btn').addEventListener('click', function () {
     const sizeInput = document.getElementById('maze-size');
     let size = parseInt(sizeInput.value);
-    
+
     // Ensure size is odd and ≥5
     if (size % 2 === 0) {
         size++; // Make it odd
@@ -149,9 +149,9 @@ document.getElementById('generate-btn').addEventListener('click', function() {
         size = 5;
         sizeInput.value = 5;
     }
-    
+
     try {
-        const maze = Generator.generateDfs(size);
+        const maze = Generator.generateKruskal(size);
         window.lastMaze = maze; // Store for resize handling
         visualizePattern(maze);
     } catch (err) {
