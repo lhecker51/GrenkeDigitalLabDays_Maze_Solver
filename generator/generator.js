@@ -1,10 +1,10 @@
 class generator {
     static pregenField(n) {
         if (!(n % 2)) {
-            throw new Error("n has to be uneven");
+            throw new Error("The given n has to be uneven.");
         }
         if (n < 5) {
-            throw new Error("n has to be at least 5");
+            throw new Error("The given n has to be at least 5.");
         }
         const field = []
         for (let i = 0; i < n; i++) {
