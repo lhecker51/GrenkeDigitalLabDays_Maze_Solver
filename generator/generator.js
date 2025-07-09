@@ -139,7 +139,21 @@ class generator {
             let cur = remaining[0]
             let path = [cur]
             let lastDir = ''
+            const dirs = [[-1, 0], [0, -1], [1, 0], [0, 1]]
+            while (!visited[path[path.length - 1][0]][path[path.length - 1][1]]) {
+                let dir = dirs[Math.floor(Math.random() * 4)]
+                let next = [cur[0] + dir[0], cur[1] + dir[1]]
+                for (let i = 0; i < path.length; i++) {
+                    if (path[i] = next) {
+                        path = path.splice(i)
+                    }
+                }
+                path.push(next)
+            }
         }
+
+        this.printField(field);
+        return field;
     }
 
     static shuffle(array) {
@@ -157,5 +171,5 @@ class generator {
         }
     }
 }
-generator.generateDfs(51)
+generator.generateWilson(11)
 console.log()
