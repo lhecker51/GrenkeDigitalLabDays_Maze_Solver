@@ -12,7 +12,7 @@ function visualizePattern(field) {
         const cols = field[0].length;
 
         // Configuration
-        const minCellSize = 20;    
+        const minCellSize = 20;
         const preferredCellSize = 40;
         const maxCellSize = 50;
 
@@ -95,7 +95,7 @@ document.getElementById('generate-btn').addEventListener('click', function () {
     }
 
     try {
-        const maze = generator.generateDfs(size);
+        const maze = generator.generateKruskal(size);
         window.lastMaze = maze; // Store for resize handling
         visualizePattern(maze);
     } catch (err) {

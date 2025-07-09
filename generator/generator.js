@@ -123,6 +123,17 @@ class generator {
         return field;
     }
 
+    static generateWilson(n) {
+        const field = this.pregenField(n);
+        let gridsize = Math.floor(n / 2);
+        const visited = Array.from({ length: gridsize }, () => Array(gridsize).fill(false))
+        visited[Math.floor(Math.random() * gridsize)][Math.floor(Math.random() * gridsize)] = true;
+
+        let remaining = Array.from({ length: gridsize * gridsize }, (_, i) => [Math.floor(i / gridsize), i % gridsize]);
+        remaining = this.shuffle(remaining)
+
+    }
+
     static shuffle(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
