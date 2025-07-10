@@ -8,6 +8,7 @@ import { HoldRightStrategy } from "../strategies/hold_right.js"
 import { DfsStrategy } from "../strategies/directed_dfs.js"
 
 let currentAnimationSpeed = 500;
+let animationRunning = false;
 
 document.getElementById('speed-slider').addEventListener('input', function () {
     currentAnimationSpeed = parseInt(this.value);
@@ -164,21 +165,20 @@ document.getElementById('solve-btn').addEventListener('click', function () {
     solveAndVisualize(selectedStrategies, window.lastMaze);
 });
 
-document.getElementById('clear-btn').addEventListener('click', function () {
-    if (window.lastMaze) {
-        visualizePattern(window.lastMaze);
+document.getElementById('clear-btn').addEventListener('click', () => {
+    animationRunning = false;
+    if (window.animationTimeout) {
+        clearTimeout(window.animationTimeout);
+        window.animationTimeout = null;
     }
-    if (window.animationInterval) {
-        clearInterval(window.animationInterval);
-    }
+    if (window.lastMaze) visualizePattern(window.lastMaze);
 });
 
-function solveAndVisualize(algorithms, maze) {
-    if (window.animationInterval) {
-        clearInterval(window.animationInterval);
-    }
 
-    visualizePattern(maze);
+
+function solveAndVisualize(algorithms, maze) {
+    if (animationRunning) return;
+    animationRunning = true;
 
     // Get solutions from the actual solvers
     const solutions = {};
@@ -208,16 +208,12 @@ function animateSolutions(solutions, maze) {
     let currentStep = 0;
     const maxSteps = Math.max(...Object.values(solutions).map(s => s.length));
 
-    // Clear any existing animation
-    if (window.animationInterval) {
-        clearInterval(window.animationInterval);
-    }
+    let running = true;
+    window.animationTimeout = null;
 
-    // Initial draw
-    redrawCanvas();
+    function stepAnimation() {
+        if (!running) return;
 
-    // Start animation
-    window.animationInterval = setInterval(() => {
         redrawCanvas();
 
         let allFinished = true;
@@ -225,13 +221,11 @@ function animateSolutions(solutions, maze) {
         Object.keys(solutions).forEach(alg => {
             if (!activeAlgorithms[alg]) return;
 
-            // Check if reached end
             if (maze[positions[alg].y][positions[alg].x] === 'E') {
                 activeAlgorithms[alg] = false;
                 return;
             }
 
-            // Move to next step if available
             if (currentStep < solutions[alg].length) {
                 const direction = solutions[alg][currentStep];
                 const newPos = getNewPosition(positions[alg], direction);
@@ -249,13 +243,22 @@ function animateSolutions(solutions, maze) {
 
         currentStep++;
 
-        // Stop animation when all algorithms finish or we exceed max steps
         if (allFinished || currentStep > maxSteps) {
-            clearInterval(window.animationInterval);
-            // Draw final positions
             redrawCanvas();
+            return;
         }
-    }, currentAnimationSpeed);
+        if (!animationRunning) {
+            redrawCanvas(); // Force cleanup redraw
+            return;
+        }
+
+
+        window.animationTimeout = setTimeout(stepAnimation, currentAnimationSpeed);
+    }
+
+    // Start animation
+    stepAnimation();
+
 
     function redrawCanvas() {
         // Clear and redraw maze
