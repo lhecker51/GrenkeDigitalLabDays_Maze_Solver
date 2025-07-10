@@ -176,7 +176,32 @@ export class generator {
         return field;
     }
 
+    static generatePrim(n) {
+        const field = this.pregenField(n)
+        const gridsize = Math.floor(n / 2)
+        const visited = Array.from({ length: gridsize }, () => Array(gridsize).fill(false))
+        visited[0][0] = true
+        const outedges = [[[0, 0], [0, 1]], [[0, 0], [1, 0]]]
+        const edges = []
+        const dirs = [[-1, 0], [0, -1], [1, 0], [0, 1]];
+        while (outedges.length) {
+            var cur = outedges.splice(Math.floor(Math.random() * outedges.length), 1)[0]
+            if (cur[1][0] < 0 || cur[1][0] >= gridsize || cur[1][1] < 0 || cur[1][1] >= gridsize || visited[cur[1][0]][cur[1][1]]) {
+                continue;
+            }
+            edges.push(cur)
+            visited[cur[1][0]][cur[1][1]] = true
+            for (let dir of dirs) {
+                outedges.push([cur[1], [cur[1][0] + dir[0], cur[1][1] + dir[1]]])
+            }
+        }
 
+        for (let edge of edges) {
+            field[1 + edge[0][0] + edge[1][0]][1 + edge[0][1] + edge[1][1]] = ' '
+        }
+        this.printField(field);
+        return field;
+    }
 
     static shuffle(array) {
         for (let i = array.length - 1; i > 0; i--) {
@@ -189,9 +214,9 @@ export class generator {
 
     static printField(field) {
         for (let row of field) {
-            console.log(row.join(''));
+            //console.log(row.join(''));
         }
     }
 }
-//generator.generateWilson(11);
+//generator.generatePrim(51);
 console.log()
