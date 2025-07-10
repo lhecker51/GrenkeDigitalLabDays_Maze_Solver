@@ -38,7 +38,7 @@ export class ranker {
             rankingTable.push(row)
         }
 
-        console.log(rankingTable)  // TODO change output
+        return rankingTable
     }
 
     static getLabyrinthCategory(name, generatingFunction, labyrinthCount) {
