@@ -4,6 +4,7 @@ import {generator} from "./generator.js";
 import {solver} from "./solver.js";
 import {LabyrinthCategory} from "./utils.js";
 import {RandomStrategy} from "../strategies/random.js";
+import {SemiRandomStrategy} from "../strategies/semi_random.js";
 import {HoldLeftStrategy} from "../strategies/hold_left.js";
 import {HoldRightStrategy} from "../strategies/hold_right.js";
 import {DfsStrategy} from "../strategies/directed_dfs.js";
@@ -20,6 +21,7 @@ export class ranker {
 
         const strategies = [
             new RandomStrategy(),
+            new SemiRandomStrategy(),
             new HoldLeftStrategy(),
             new HoldRightStrategy(),
             new DfsStrategy()

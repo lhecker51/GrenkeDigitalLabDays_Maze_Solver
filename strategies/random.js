@@ -4,7 +4,7 @@ import { Strategy } from "../backend/utils.js";
 
 export class RandomStrategy extends Strategy {
     constructor() {
-        super("Random");
+        super("True Random");
     }
 
     calculateDirection(environment) {
