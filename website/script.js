@@ -386,17 +386,26 @@ algorithmCheckboxes.forEach(checkbox => {
         document.getElementById('select-all').checked = allChecked;
     });
 });
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('maze-size').value = 15; 
+    document.getElementById('speed-slider').value = 100;
+    document.getElementById('speed-value').textContent = '100ms';
+    currentAnimationSpeed = 100;
+    document.getElementById('generate-btn').click();
+});
 
 // Emilias Bereich
 
+/*
+
 document.getElementById('ranking-btn').addEventListener('click', function () {
     try {
-        document.getElementById('ranking-error').textContent = ""
+        document.getElementById('error').textContent = ""
         visualizeRanking(ranker.create_ranking())
     } catch (err) {
-        document.getElementById('ranking-error').textContent = `Error: ${err.message}`
+        document.getElementById('error').textContent = `Error: ${err.message}`
     }
-});
+})
 
 function visualizeRanking(rankingTable) {
     const canvas = document.getElementById('ranking-sqr')
@@ -406,7 +415,7 @@ function visualizeRanking(rankingTable) {
     const cols = rankingTable[0].length
 
     const minCellSize = 10
-    const preferredCellSize = 100
+    const preferredCellSize = 150
     const maxViewportRatio = 0.8
 
     const maxViewportWidth = window.innerWidth * maxViewportRatio
@@ -434,17 +443,78 @@ function visualizeRanking(rankingTable) {
             }
 
             if (x === 0 || y === 0) {
-                ctx.fillStyle = '#aaaaaa' // TODO change
+                ctx.fillStyle = '#aaaaaa'
                 ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize)
             } else {
-                ctx.fillStyle = '#00ff00' // TODO change
+                ctx.fillStyle = '#00ff00'
                 ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize)
             }
 
             ctx.strokeStyle = '#eeeeee'
             ctx.strokeRect(x * cellSize, y * cellSize, cellSize, cellSize)
 
-            // TODO add text
+            ctx.createTextNode(content)
         }
     }
+}
+
+*/
+
+document.getElementById('ranking-btn').addEventListener('click', function () {
+    try {
+        document.getElementById('error').textContent = ""
+        const sizeInput = document.getElementById('maze-size')
+        const size = parseInt(sizeInput.value)
+        generateRankingTable(ranker.create_ranking(size))
+    } catch (err) {
+        document.getElementById('error').textContent = `Error: ${err.message}`
+    }
+})
+
+function generateRankingTable(rankingMatrix) {
+    const container = document.getElementById('ranking-container')
+    container.innerHTML = '';
+
+    const rows = rankingMatrix.length
+    const cols = rankingMatrix[0].length
+
+    let minimumValue = 999999999999
+    let maximumValue = 0
+    for (let y = 1; y < rows; y++) {
+        for (let x = 1; x < cols; x++) {
+            minimumValue = Math.min(minimumValue, rankingMatrix[y][x])
+            maximumValue = Math.max(maximumValue, rankingMatrix[y][x])
+        }
+    }
+
+    const table = document.createElement('table')
+    table.style.borderCollapse = 'collapse'
+
+    for (let y = 0; y < rows; y++) {
+        const tr = document.createElement('tr')
+        for (let x = 0; x < cols; x++) {
+            const td = document.createElement('td')
+
+            if (x === 0 && y === 0) {
+                td.style.backgroundColor = "#ffffff"
+            } else if (x === 0 || y === 0) {
+                td.style.backgroundColor = "#aaaaaa"
+            } else {
+                const redPercentage = Math.log(rankingMatrix[y][x] - minimumValue + 1) / Math.log(maximumValue - minimumValue + 1)
+                const redAmount = Math.min(Math.max(Math.floor(255 * redPercentage), 0), 255)
+                const greenAmount = 255 - redAmount
+                const redHex = redAmount.toString(16).padStart(2, '0')
+                const greenHex =  greenAmount.toString(16).padStart(2, '0')
+                td.style.backgroundColor = "#" + redHex + greenHex + "00"
+            }
+
+            td.textContent = rankingMatrix[y][x]
+            td.style.padding = '20px';
+            td.style.color = "#000000"
+            tr.appendChild(td)
+        }
+        table.appendChild(tr)
+    }
+
+    container.appendChild(table)
 }
