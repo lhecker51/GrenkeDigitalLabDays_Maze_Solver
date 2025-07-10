@@ -1,5 +1,14 @@
-import { generator } from '../backend/generator.js';
+import { generator } from '../backend/generator.js'
+import { solver } from "../backend/solver.js"
+import { RandomStrategy } from "../strategies/random.js"
+import {HoldLeftStrategy} from "../strategies/hold_left.js"
+import {HoldRightStrategy} from "../strategies/hold_right.js"
 
+function test() {
+    const strategy = new RandomStrategy()
+    const labyrinth = generator.generateDfs(7)
+    console.log(solver.solve(labyrinth, strategy))
+}
 let currentAnimationSpeed = 500;
 
 document.getElementById('speed-slider').addEventListener('input', function() {
@@ -119,6 +128,9 @@ const PROTOTYPE_PATHS = {
     RandomWalk: ['R', 'D', 'R', 'U', 'R', 'D', 'L', 'D', 'R', 'D', 'R', 'U', 'R', 'D', 'D', 'R', 'R'],
     ShortestPath: ['R', 'R', 'D', 'D', 'R', 'R', 'D', 'D', 'R', 'R']
 };
+const PATHS = {
+
+}
 
 const ALGORITHM_COLORS = {
     'LeftHand': '#3498db',
