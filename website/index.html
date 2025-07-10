@@ -28,41 +28,24 @@
     </div>
     <div id="container_algorithm">
         <form name="Algorithm_chooser" id="algorithm_form">
-    <fieldset id="choose_algorithm">
-        <legend id="algorithm_choose_header">Algorithm Types:</legend>
-        <input type="checkbox" name="algorithm" value="LeftHand" id="left-hand"> 
-        <label for="left-hand">Hold Left</label>
-        <br>
-        <input type="checkbox" name="algorithm" value="RightHand" id="right-hand">
-        <label for="right-hand">Hold Right</label>
-        <br>
-        <input type="checkbox" name="algorithm" value="RandomWalk" id="random-walk">
-        <label for="random-walk">Hold Wall</label>
-        <br>
-        <input type="checkbox" name="algorithm" value="ShortestPath" id="shortest-path">
-        <label for="shortest-path">Random</label>
-        <br>
-        <button id="solve-btn" type="button">Solve Maze</button>
-        <button id="clear-btn" type="button">Clear Solutions</button>
-    </fieldset>
-</form>
             <fieldset id="choose_algorithm">
                 <legend id="algorithm_choose_header">Algorithm Types:</legend>
                 <input type="checkbox" name="algorithm" value="LeftHand" id="left-hand">
-                <label for="left-hand">Left Hand Rule</label>
+                <label for="left-hand">Hold Left</label>
                 <br>
                 <input type="checkbox" name="algorithm" value="RightHand" id="right-hand">
-                <label for="right-hand">Right Hand Rule</label>
+                <label for="right-hand">Hold Right</label>
                 <br>
                 <input type="checkbox" name="algorithm" value="RandomWalk" id="random-walk">
-                <label for="random-walk">Random Walk</label>
+                <label for="random-walk">Hold Wall</label>
                 <br>
                 <input type="checkbox" name="algorithm" value="ShortestPath" id="shortest-path">
-                <label for="shortest-path">Shortest Path</label>
+                <label for="shortest-path">Random</label>
                 <br>
                 <button id="solve-btn" type="button">Solve Maze</button>
                 <button id="clear-btn" type="button">Clear Solutions</button>
             </fieldset>
+        </form>
         </form>
         <div id="controls">
             <p id="error"></p>
