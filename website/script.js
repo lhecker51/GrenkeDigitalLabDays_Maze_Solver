@@ -482,7 +482,7 @@ function generateRankingTable(rankingMatrix) {
             td.textContent = rankingMatrix[y][x]
             td.style.padding = '20px';
             td.style.color = "#000000"
-            td.style.backgroundColor = "#00ff00"
+            td.style.backgroundColor = "#00ffff"
             tr.appendChild(td)
         }
         table.appendChild(tr)
