@@ -8,6 +8,7 @@ body {
     min-height: 100vh;
     background-image: url("pixelart_for_maze.png");
     color: white;
+    font-family: monospace;
 }
 
 h1 {
@@ -76,6 +77,7 @@ h1 {
 
 #algorithm_choose_header {
     font-size: 25pt;
+    color: black;
 }
 
 #choose_algorithm {
@@ -100,19 +102,19 @@ h1 {
 }
 
 #lefthand {
-    color: #3498db;
+    color: #F44336;
 }
 
 #righthand {
-    color: #e67e22;
+    color: #9C27B0;
 }
 
 #random {
-    color: #9b59b6;
+    color: #2196F3;
 }
 
 #dfslabel {
-    color: #42a853;
+    color: #009688;
 }
 
 /* Emilias Bereich */
