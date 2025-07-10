@@ -1,11 +1,11 @@
-import { generator } from '../backend/generator.js';
-import { solver } from "../backend/solver.js";
-import { ranker } from "../backend/ranker.js";
-import { RandomStrategy } from "../strategies/random.js";
+import {generator} from '../backend/generator.js';
+import {solver} from "../backend/solver.js";
+import {ranker} from "../backend/ranker.js";
+import {RandomStrategy} from "../strategies/random.js";
 import {SemiRandomStrategy} from "../strategies/semi_random.js";
-import { HoldLeftStrategy } from "../strategies/hold_left.js";
-import { HoldRightStrategy } from "../strategies/hold_right.js"
-import { DfsStrategy } from "../strategies/directed_dfs.js"
+import {HoldLeftStrategy} from "../strategies/hold_left.js";
+import {HoldRightStrategy} from "../strategies/hold_right.js"
+import {DfsStrategy} from "../strategies/directed_dfs.js"
 
 let currentAnimationSpeed = 500;
 let animationRunning = false;
@@ -18,7 +18,6 @@ document.getElementById('speed-slider').addEventListener('input', function () {
 function visualizePattern(field) {
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
-    const container = document.getElementById('canvas-container');
     const errorEl = document.getElementById('error');
     errorEl.textContent = "";
 
@@ -123,10 +122,18 @@ document.getElementById('generate-btn').addEventListener('click', function () {
         var maze = []
         console.log(generationAlgo)
         switch (generationAlgo) {
-            case "DFS": maze = generator.generateDfs(size)
-            case "Prim": maze = generator.generatePrim(size)
-            case "Kruskal": maze = generator.generateKruskal(size)
-            case "Wilson": maze = generator.generateWilson(size)
+            case "DFS":
+                maze = generator.generateDfs(size)
+                break
+            case "Prim":
+                maze = generator.generatePrim(size)
+                break
+            case "Kruskal":
+                maze = generator.generateKruskal(size)
+                break
+            case "Wilson":
+                maze = generator.generateWilson(size)
+                break
         }
         window.lastMaze = maze; // Store for resize handling
         visualizePattern(maze);
@@ -210,8 +217,8 @@ function animateSolutions(solutions, maze) {
     const paths = {};
     const activeAlgorithms = {};
     Object.keys(solutions).forEach(alg => {
-        positions[alg] = { ...startPos };
-        paths[alg] = [{ ...startPos }];
+        positions[alg] = {...startPos};
+        paths[alg] = [{...startPos}];
         activeAlgorithms[alg] = true;
     });
 
@@ -242,7 +249,7 @@ function animateSolutions(solutions, maze) {
 
                 if (isValidPosition(newPos, maze)) {
                     positions[alg] = newPos;
-                    paths[alg].push({ ...newPos });
+                    paths[alg].push({...newPos});
                 }
             }
 
@@ -331,7 +338,7 @@ function animateSolutions(solutions, maze) {
 function findStartPosition(maze) {
     for (let y = 0; y < maze.length; y++) {
         for (let x = 0; x < maze[y].length; x++) {
-            if (maze[y][x] === 'S') return { x, y };
+            if (maze[y][x] === 'S') return {x, y};
         }
     }
     return null;
@@ -340,7 +347,7 @@ function findStartPosition(maze) {
 function findEndPosition(maze) {
     for (let y = 0; y < maze.length; y++) {
         for (let x = 0; x < maze[y].length; x++) {
-            if (maze[y][x] === 'E') return { x, y };
+            if (maze[y][x] === 'E') return {x, y};
         }
     }
     return null;
@@ -349,15 +356,15 @@ function findEndPosition(maze) {
 function getNewPosition(pos, direction) {
     switch (direction) {
         case 'U':
-            return { x: pos.x, y: pos.y - 1 };
+            return {x: pos.x, y: pos.y - 1};
         case 'D':
-            return { x: pos.x, y: pos.y + 1 };
+            return {x: pos.x, y: pos.y + 1};
         case 'L':
-            return { x: pos.x - 1, y: pos.y };
+            return {x: pos.x - 1, y: pos.y};
         case 'R':
-            return { x: pos.x + 1, y: pos.y };
+            return {x: pos.x + 1, y: pos.y};
         default:
-            return { ...pos };
+            return {...pos};
     }
 }
 
@@ -370,6 +377,7 @@ function isValidPosition(pos, maze) {
     // Check if it's a wall
     return maze[pos.y][pos.x] !== 'X';
 }
+
 // Add Select All functionality
 document.getElementById('select-all').addEventListener('change', function (e) {
     const checkboxes = document.querySelectorAll('input[name="algorithm"]');
@@ -386,11 +394,11 @@ algorithmCheckboxes.forEach(checkbox => {
         document.getElementById('select-all').checked = allChecked;
     });
 });
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('maze-size').value = 15; 
-    document.getElementById('speed-slider').value = 100;
-    document.getElementById('speed-value').textContent = '100ms';
-    currentAnimationSpeed = 100;
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('maze-size').value = 15;
+    document.getElementById('speed-slider').value = 500;
+    document.getElementById('speed-value').textContent = '500ms';
+    currentAnimationSpeed = 500;
     document.getElementById('generate-btn').click();
 });
 
@@ -504,7 +512,7 @@ function generateRankingTable(rankingMatrix) {
                 const redAmount = Math.min(Math.max(Math.floor(255 * redPercentage), 0), 255)
                 const greenAmount = 255 - redAmount
                 const redHex = redAmount.toString(16).padStart(2, '0')
-                const greenHex =  greenAmount.toString(16).padStart(2, '0')
+                const greenHex = greenAmount.toString(16).padStart(2, '0')
                 td.style.backgroundColor = "#" + redHex + greenHex + "00"
             }
 
