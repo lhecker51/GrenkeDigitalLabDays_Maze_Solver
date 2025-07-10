@@ -386,6 +386,13 @@ algorithmCheckboxes.forEach(checkbox => {
         document.getElementById('select-all').checked = allChecked;
     });
 });
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('maze-size').value = 15; 
+    document.getElementById('speed-slider').value = 100;
+    document.getElementById('speed-value').textContent = '100ms';
+    currentAnimationSpeed = 100;
+    document.getElementById('generate-btn').click();
+});
 
 // Emilias Bereich
 

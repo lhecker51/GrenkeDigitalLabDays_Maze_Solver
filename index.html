@@ -9,12 +9,15 @@
     <script src="website/script.js" defer type="module"></script>
     <script src="backend/generator.js" defer type="module"></script>
     <link rel="icon" type="image/x-icon" href="website/favicon.ico">
-    <!--<script src="../solver/solver.ts" defer type="module"></script>-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <h1>Maze Solver</h1>
-    <div id="container_generator">
+    <div id="container_1">
+        <div id="container_generator">
             <fieldset>
                 <legend id="maze_header">Settings Maze Generator</legend>
                 <label>Choose strategy type:</label>
@@ -30,40 +33,41 @@
                 <button id="generate-btn">Generate Maze</button>
             </fieldset>
         </div>
+        <div id="container_algorithm">
+            <form name="Algorithm_chooser" id="algorithm_form">
+                <fieldset id="choose_algorithm">
+                    <p id="algorithm_choose_header">Algorithm Types:</p>
+                    <input type="checkbox" id="select-all" name="select-all">
+                    <label for="select-all">Select All</label>
+                    <br>
+                    <input type="checkbox" name="algorithm" value="LeftHand" id="left-hand">
+                    <label for="left-hand" id="lefthand">Hold Left</label>
+                    <br>
+                    <input type="checkbox" name="algorithm" value="RightHand" id="right-hand">
+                    <label for="right-hand" id="righthand">Hold Right</label>
+                    <br>
+                    <input type="checkbox" name="algorithm" value="RandomWalk" id="random-walk">
+                    <label for="random-walk" id="random">Random</label>
+                    <br>
+                    <input type="checkbox" name="algorithm" value="DFS" id="dfs">
+                    <label for="dfs" id="dfslabel">DFS</label>
+                    <br>
+                    <button id="solve-btn" type="button">Solve Maze</button>
+                    <button id="clear-btn" type="reset">Clear Solutions</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+    <div class="speed-control">
+        <label for="speed-slider">Solver Speed:</label>
+        <input type="range" id="speed-slider" min="0" max="1000" value="500" step="50">
+          <span id="speed-value">500ms</span>
+     </div>
     <div id="controls">
         <p id="error"></p>
     </div>
-    <div id="container_algorithm">
-        <form name="Algorithm_chooser" id="algorithm_form">
-            <fieldset id="choose_algorithm">
-                <p id="algorithm_choose_header">Algorithm Types:</p>
-                <input type="checkbox" id="select-all" name="select-all">
-                <label for="select-all">Select All</label>
-                <br>
-                <input type="checkbox" name="algorithm" value="LeftHand" id="left-hand">
-                <label for="left-hand" id="lefthand">Hold Left</label>
-                <br>
-                <input type="checkbox" name="algorithm" value="RightHand" id="right-hand">
-                <label for="right-hand" id="righthand">Hold Right</label>
-                <br>
-                <input type="checkbox" name="algorithm" value="RandomWalk" id="random-walk">
-                <label for="random-walk" id="random">Random</label>
-                <br>
-                <input type="checkbox" name="algorithm" value="DFS" id="dfs">
-                <label for="dfs" id="dfslabel">DFS</label>
-                <br>
-                <button id="solve-btn" type="button">Solve Maze</button>
-                <button id="clear-btn" type="reset">Clear Solutions</button>
-            </fieldset>
-            <div class="speed-control">
-                <label for="speed-slider">Solver Speed:</label>
-                <input type="range" id="speed-slider" min="0" max="1000" value="500" step="50">
-                <span id="speed-value">500ms</span>
-            </div>
-        </form>
-        <div id="canvas-container">
-            <canvas id="canvas"></canvas>
-        </div>
+    <div id="canvas-container">
+        <canvas id="canvas"></canvas>
     </div>
     <!--Emilias Bereich-->
     <div>
