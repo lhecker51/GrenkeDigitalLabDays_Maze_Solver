@@ -463,7 +463,9 @@ function visualizeRanking(rankingTable) {
 document.getElementById('ranking-btn').addEventListener('click', function () {
     try {
         document.getElementById('error').textContent = ""
-        generateRankingTable(ranker.create_ranking())
+        const sizeInput = document.getElementById('maze-size')
+        const size = parseInt(sizeInput.value)
+        generateRankingTable(ranker.create_ranking(size))
     } catch (err) {
         document.getElementById('error').textContent = `Error: ${err.message}`
     }
@@ -476,20 +478,39 @@ function generateRankingTable(rankingMatrix) {
     const rows = rankingMatrix.length
     const cols = rankingMatrix[0].length
 
-    // Create table element
+    let minimumValue = 999999999999
+    let maximumValue = 0
+    for (let y = 1; y < rows; y++) {
+        for (let x = 1; x < cols; x++) {
+            minimumValue = Math.min(minimumValue, rankingMatrix[y][x])
+            maximumValue = Math.max(maximumValue, rankingMatrix[y][x])
+        }
+    }
+
     const table = document.createElement('table')
     table.style.borderCollapse = 'collapse'
 
-    // Generate rows and columns
     for (let y = 0; y < rows; y++) {
         const tr = document.createElement('tr')
         for (let x = 0; x < cols; x++) {
             const td = document.createElement('td')
 
+            if (x === 0 && y === 0) {
+                td.style.backgroundColor = "#ffffff"
+            } else if (x === 0 || y === 0) {
+                td.style.backgroundColor = "#aaaaaa"
+            } else {
+                const redPercentage = Math.log(rankingMatrix[y][x] - minimumValue + 1) / Math.log(maximumValue - minimumValue + 1)
+                const redAmount = Math.min(Math.max(Math.floor(255 * redPercentage), 0), 255)
+                const greenAmount = 255 - redAmount
+                const redHex = redAmount.toString(16).padStart(2, '0')
+                const greenHex =  greenAmount.toString(16).padStart(2, '0')
+                td.style.backgroundColor = "#" + redHex + greenHex + "00"
+            }
+
             td.textContent = rankingMatrix[y][x]
             td.style.padding = '20px';
             td.style.color = "#000000"
-            td.style.backgroundColor = "#00fffe"
             tr.appendChild(td)
         }
         table.appendChild(tr)

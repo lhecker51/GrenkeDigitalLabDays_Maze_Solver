@@ -11,14 +11,11 @@ import {DfsStrategy} from "../strategies/directed_dfs.js";
 export class ranker {
     static labyrinthCount = 20
 
-    static create_ranking() {
+    static create_ranking(size) {
         const labyrinthCategories = [
-            this.getLabyrinthCategory("DFS_7", () => generator.generateDfs(7)),
-            this.getLabyrinthCategory("Kruskal_7", () => generator.generateKruskal(7)),
-            this.getLabyrinthCategory("Wilson_7", () => generator.generateWilson(7)),
-            this.getLabyrinthCategory("DFS_15", () => generator.generateDfs(15)),
-            this.getLabyrinthCategory("Kruskal_15", () => generator.generateKruskal(15)),
-            this.getLabyrinthCategory("Wilson_15", () => generator.generateWilson(15)),
+            this.getLabyrinthCategory("DFS", () => generator.generateDfs(size)),
+            this.getLabyrinthCategory("Kruskal", () => generator.generateKruskal(size)),
+            this.getLabyrinthCategory("Wilson", () => generator.generateWilson(size)),
         ]
 
         const strategies = [
