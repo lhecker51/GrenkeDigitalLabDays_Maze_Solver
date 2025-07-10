@@ -1,71 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Maze Visualizer</title>
-        <link rel="stylesheet" href="style.css" type="text/css">
-        <script src="script.js" defer type="module"></script>
-        <script src="../backend/generator.js" defer type="module"></script>
-        <!--<script src="../solver/solver.ts" defer type="module"></script>-->
-    </head>
-    <body>
-        <h1>Maze Solver</h1>
-        <div id="container_generator">
-            <fieldset>
-                <legend>Settings Maze Generator</legend>
-                <select id="generator-select">
-                    <option>DFS</option>
-                    <option>Kruskal</option>
-                    <option>Wilson</option>
-                </select>
-                <label for="maze-size">Maze Size (odd number ≥5 & ≤ 79 ):</label>
-                <input type="number" id="maze-size" min="5" step="2" value="21">
-                <button id="generate-btn">Generate Maze</button>
-            </fieldset>
-        </div>
-        <div id="controls">
-            <p id="error"></p>
-        </div>
-        <div id="container_algorithm">
-            <form name="Algorithm_chooser" id="algorithm_form">
-                <fieldset id="choose_algorithm">
-                    <input type="checkbox" id="select-all" name="select-all">
-                    <label for="select-all">Select All</label>
-                    <br>
-                    <legend id="algorithm_choose_header">Algorithm Types:</legend>
-                    <input type="checkbox" name="algorithm" value="LeftHand" id="left-hand">
-                    <label for="left-hand" id="lefthand">Hold Left</label>
-                    <br>
-                    <input type="checkbox" name="algorithm" value="RightHand" id="right-hand">
-                    <label for="right-hand" id="righthand">Hold Right</label>
-                    <br>
-                    <input type="checkbox" name="algorithm" value="RandomWalk" id="random-walk">
-                    <label for="random-walk" id="random">Random</label>
-                    <br>
-                    <input type="checkbox" name="algorithm" value="DFS" id="dfs">
-                    <label for="dfs" id="dfslabel">DFS</label>
-                    <br>
-                    <button id="solve-btn" type="button">Solve Maze</button>
-                    <button id="clear-btn" type="reset">Clear Solutions</button>
-                </fieldset>
-            </form>
-            <div id="canvas-container">
-                <canvas id="canvas"></canvas>
-            </div>
-            <div class="speed-control">
-                <label for="speed-slider">Solver Speed:</label>
-                <input type="range" id="speed-slider" min="0" max="1000" value="500" step="50">
-                <span id="speed-value">500ms</span>
-            </div>
-        </div>
-        <!--Emilias Bereich-->
-        <div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maze Visualizer</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <script src="script.js" defer type="module"></script>
+    <script src="../backend/generator.js" defer type="module"></script>
+    <!--<script src="../solver/solver.ts" defer type="module"></script>-->
+</head>
+<body>
+<h1>Maze Solver</h1>
+<div id="container_generator">
+    <fieldset>
+        <legend>Settings Maze Generator</legend>
+        <select id="generator-select">
+            <option>DFS</option>
+            <option>Kruskal</option>
+            <option>Wilson</option>
+        </select>
+        <label for="maze-size">Maze Size (odd number ≥5 & ≤ 79 ):</label>
+        <input type="number" id="maze-size" min="5" step="2" value="21">
+        <button id="generate-btn">Generate Maze</button>
+    </fieldset>
+</div>
+<div id="controls">
+    <p id="error"></p>
+</div>
+<div id="container_algorithm">
+    <form name="Algorithm_chooser" id="algorithm_form">
+        <fieldset id="choose_algorithm">
+            <input type="checkbox" id="select-all" name="select-all">
+            <label for="select-all">Select All</label>
             <br>
-            <button id="ranking-btn" value="RankingBtn">Generate Ranking</button>
-        </div>
-        <div id="ranking_container">
-            <canvas id="ranking-sqr">ranking</canvas>
-        </div>
-    </body>
+            <legend id="algorithm_choose_header">Algorithm Types:</legend>
+            <input type="checkbox" name="algorithm" value="LeftHand" id="left-hand">
+            <label for="left-hand" id="lefthand">Hold Left</label>
+            <br>
+            <input type="checkbox" name="algorithm" value="RightHand" id="right-hand">
+            <label for="right-hand" id="righthand">Hold Right</label>
+            <br>
+            <input type="checkbox" name="algorithm" value="RandomWalk" id="random-walk">
+            <label for="random-walk" id="random">Random</label>
+            <br>
+            <input type="checkbox" name="algorithm" value="DFS" id="dfs">
+            <label for="dfs" id="dfslabel">DFS</label>
+            <br>
+            <button id="solve-btn" type="button">Solve Maze</button>
+            <button id="clear-btn" type="reset">Clear Solutions</button>
+        </fieldset>
+    </form>
+    <div id="canvas-container">
+        <canvas id="canvas"></canvas>
+    </div>
+    <div class="speed-control">
+        <label for="speed-slider">Solver Speed:</label>
+        <input type="range" id="speed-slider" min="0" max="1000" value="500" step="50">
+        <span id="speed-value">500ms</span>
+    </div>
+</div>
+<!--Emilias Bereich-->
+<div>
+    <button id="ranking-btn" value="RankingBtn">Generate Ranking</button>
+</div>
+<div id="ranking-container">
+</div>
+</body>
 </html>

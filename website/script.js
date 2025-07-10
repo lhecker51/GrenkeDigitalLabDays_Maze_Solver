@@ -389,14 +389,16 @@ algorithmCheckboxes.forEach(checkbox => {
 
 // Emilias Bereich
 
+/*
+
 document.getElementById('ranking-btn').addEventListener('click', function () {
     try {
-        document.getElementById('ranking-error').textContent = ""
+        document.getElementById('error').textContent = ""
         visualizeRanking(ranker.create_ranking())
     } catch (err) {
-        document.getElementById('ranking-error').textContent = `Error: ${err.message}`
+        document.getElementById('error').textContent = `Error: ${err.message}`
     }
-});
+})
 
 function visualizeRanking(rankingTable) {
     const canvas = document.getElementById('ranking-sqr')
@@ -406,7 +408,7 @@ function visualizeRanking(rankingTable) {
     const cols = rankingTable[0].length
 
     const minCellSize = 10
-    const preferredCellSize = 100
+    const preferredCellSize = 150
     const maxViewportRatio = 0.8
 
     const maxViewportWidth = window.innerWidth * maxViewportRatio
@@ -434,17 +436,57 @@ function visualizeRanking(rankingTable) {
             }
 
             if (x === 0 || y === 0) {
-                ctx.fillStyle = '#aaaaaa' // TODO change
+                ctx.fillStyle = '#aaaaaa'
                 ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize)
             } else {
-                ctx.fillStyle = '#00ff00' // TODO change
+                ctx.fillStyle = '#00ff00'
                 ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize)
             }
 
             ctx.strokeStyle = '#eeeeee'
             ctx.strokeRect(x * cellSize, y * cellSize, cellSize, cellSize)
 
-            // TODO add text
+            ctx.createTextNode(content)
         }
     }
+}
+
+*/
+
+document.getElementById('ranking-btn').addEventListener('click', function () {
+    try {
+        document.getElementById('error').textContent = ""
+        generateRankingTable(ranker.create_ranking())
+    } catch (err) {
+        document.getElementById('error').textContent = `Error: ${err.message}`
+    }
+})
+
+function generateRankingTable(rankingMatrix) {
+    const container = document.getElementById('ranking-container')
+    container.innerHTML = '';
+
+    const rows = rankingMatrix.length
+    const cols = rankingMatrix[0].length
+
+    // Create table element
+    const table = document.createElement('table')
+    table.style.borderCollapse = 'collapse'
+
+    // Generate rows and columns
+    for (let y = 0; y < rows; y++) {
+        const tr = document.createElement('tr')
+        for (let x = 0; x < cols; x++) {
+            const td = document.createElement('td')
+
+            td.textContent = rankingMatrix[y][x]
+            td.style.padding = '20px';
+            td.style.color = "#000000"
+            td.style.backgroundColor = "#00ff00"
+            tr.appendChild(td)
+        }
+        table.appendChild(tr)
+    }
+
+    container.appendChild(table)
 }
