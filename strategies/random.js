@@ -1,6 +1,6 @@
 "use strict";
 
-import {Strategy} from "../backend/utils.js";
+import { Strategy } from "../backend/utils.js";
 
 export class RandomStrategy extends Strategy {
     calculateDirection(environment) {
