@@ -114,3 +114,9 @@ h1 {
 #dfslabel {
     color: #42a853;
 }
+#ranking-sqr {
+    background-color: red;
+    width: 30%;
+    margin: 10px;
+    height: 500px;
+}
