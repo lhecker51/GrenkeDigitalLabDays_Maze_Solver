@@ -15,6 +15,7 @@ export class ranker {
     static create_ranking(size) {
         const labyrinthCategories = [
             this.getLabyrinthCategory("DFS", () => generator.generateDfs(size)),
+            this.getLabyrinthCategory("Prim", () => generator.generatePrim(size)),
             this.getLabyrinthCategory("Kruskal", () => generator.generateKruskal(size)),
             this.getLabyrinthCategory("Wilson", () => generator.generateWilson(size)),
         ]
