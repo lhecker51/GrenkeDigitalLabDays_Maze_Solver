@@ -8,17 +8,14 @@ export class HoldWallStrategy extends Strategy {
         this.previousDirection = "U";
     }
 
-    calculateDirection(environment) {  // TODO fix, doesn't work
-        if (this.checkDirection(environment, this.getNecessaryDirection())) {
-            this.previousDirection = this.getNecessaryDirection();
-            return this.previousDirection;
-        } else {
-            this.previousDirection = this.getNecessaryDirection();
-            return this.calculateDirection(environment);
+    calculateDirection(environment) {
+        for (let direction of this.getPreferredNextDirections(this.previousDirection)) {
+            if (this.checkDirection(environment, direction)) {
+                this.previousDirection = direction;
+                return direction;
+            }
         }
     }
 
-    getPreviousDirection() {
-        return this.previousDirection;
-    }
+    getPreferredNextDirections(direction) {}  // override in subclasses
 }

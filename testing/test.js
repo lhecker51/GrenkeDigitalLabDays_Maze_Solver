@@ -7,8 +7,8 @@ import {HoldLeftStrategy} from "../strategies/hold_left.js";
 import {HoldRightStrategy} from "../strategies/hold_right.js";
 
 function test() {
-    const strategy = new RandomStrategy()
-    const labyrinth = generator.generateDfs(7)
+    const strategy = new HoldLeftStrategy()
+    const labyrinth = generator.generateKruskal(9)
     console.log(solver.solve(labyrinth, strategy))
 }
 
