@@ -26,6 +26,8 @@ export class Strategy {
         return this.calculateDirection(environment)
     }
 
+    calculateDirection(environment) {}  // override in subclasses
+
     checkDirection(environment, direction) {
         switch (direction) {
             case "U": return environment.u !== "X"
