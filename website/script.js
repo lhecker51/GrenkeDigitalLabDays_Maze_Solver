@@ -1,10 +1,10 @@
-import {generator} from '../backend/generator.js';
-import {solver} from "../backend/solver.js";
-import {ranker} from "../backend/ranker.js";
-import {RandomStrategy} from "../strategies/random.js";
-import {HoldLeftStrategy} from "../strategies/hold_left.js";
-import {HoldRightStrategy} from "../strategies/hold_right.js"
-import {DfsStrategy} from "../strategies/directed_dfs.js"
+import { generator } from '../backend/generator.js';
+import { solver } from "../backend/solver.js";
+import { ranker } from "../backend/ranker.js";
+import { RandomStrategy } from "../strategies/random.js";
+import { HoldLeftStrategy } from "../strategies/hold_left.js";
+import { HoldRightStrategy } from "../strategies/hold_right.js"
+import { DfsStrategy } from "../strategies/directed_dfs.js"
 
 let currentAnimationSpeed = 500;
 let animationRunning = false;
@@ -97,11 +97,13 @@ window.addEventListener('resize', function () {
 
 // Handle generate button click
 document.getElementById('generate-btn').addEventListener('click', function () {
+    animationRunning = false
     if (window.lastMaze) {
         visualizePattern(window.lastMaze);
     }
-    if (window.animationInterval) {
-        clearInterval(window.animationInterval);
+    if (window.animationTimeout != null) {
+        clearTimeout(window.animationTimeout)
+        window.animationTimeout = null
     }
     const sizeInput = document.getElementById('maze-size');
     let size = parseInt(sizeInput.value);
@@ -208,8 +210,8 @@ function animateSolutions(solutions, maze) {
     const paths = {};
     const activeAlgorithms = {};
     Object.keys(solutions).forEach(alg => {
-        positions[alg] = {...startPos};
-        paths[alg] = [{...startPos}];
+        positions[alg] = { ...startPos };
+        paths[alg] = [{ ...startPos }];
         activeAlgorithms[alg] = true;
     });
 
@@ -240,7 +242,7 @@ function animateSolutions(solutions, maze) {
 
                 if (isValidPosition(newPos, maze)) {
                     positions[alg] = newPos;
-                    paths[alg].push({...newPos});
+                    paths[alg].push({ ...newPos });
                 }
             }
 
@@ -329,7 +331,7 @@ function animateSolutions(solutions, maze) {
 function findStartPosition(maze) {
     for (let y = 0; y < maze.length; y++) {
         for (let x = 0; x < maze[y].length; x++) {
-            if (maze[y][x] === 'S') return {x, y};
+            if (maze[y][x] === 'S') return { x, y };
         }
     }
     return null;
@@ -338,7 +340,7 @@ function findStartPosition(maze) {
 function findEndPosition(maze) {
     for (let y = 0; y < maze.length; y++) {
         for (let x = 0; x < maze[y].length; x++) {
-            if (maze[y][x] === 'E') return {x, y};
+            if (maze[y][x] === 'E') return { x, y };
         }
     }
     return null;
@@ -347,15 +349,15 @@ function findEndPosition(maze) {
 function getNewPosition(pos, direction) {
     switch (direction) {
         case 'U':
-            return {x: pos.x, y: pos.y - 1};
+            return { x: pos.x, y: pos.y - 1 };
         case 'D':
-            return {x: pos.x, y: pos.y + 1};
+            return { x: pos.x, y: pos.y + 1 };
         case 'L':
-            return {x: pos.x - 1, y: pos.y};
+            return { x: pos.x - 1, y: pos.y };
         case 'R':
-            return {x: pos.x + 1, y: pos.y};
+            return { x: pos.x + 1, y: pos.y };
         default:
-            return {...pos};
+            return { ...pos };
     }
 }
 
