@@ -1,11 +1,10 @@
-// script.js
-import { generator } from '../backend/generator.js';
-import { solver } from "../backend/solver.js";
-import { ranker } from "../backend/ranker.js";
-import { RandomStrategy } from "../strategies/random.js";
-import { HoldLeftStrategy } from "../strategies/hold_left.js";
-import { HoldRightStrategy } from "../strategies/hold_right.js"
-import { DfsStrategy } from "../strategies/directed_dfs.js"
+import {generator} from '../backend/generator.js';
+import {solver} from "../backend/solver.js";
+import {ranker} from "../backend/ranker.js";
+import {RandomStrategy} from "../strategies/random.js";
+import {HoldLeftStrategy} from "../strategies/hold_left.js";
+import {HoldRightStrategy} from "../strategies/hold_right.js"
+import {DfsStrategy} from "../strategies/directed_dfs.js"
 
 let currentAnimationSpeed = 500;
 let animationRunning = false;
@@ -98,12 +97,12 @@ window.addEventListener('resize', function () {
 
 // Handle generate button click
 document.getElementById('generate-btn').addEventListener('click', function () {
-    animationRunning = false
-    if (window.animationTimeout) {
-        clearTimeout(window.animationTimeout);
-        window.animationTimeout = null;
+    if (window.lastMaze) {
+        visualizePattern(window.lastMaze);
     }
-    if (window.lastMaze) visualizePattern(window.lastMaze);
+    if (window.animationInterval) {
+        clearInterval(window.animationInterval);
+    }
     const sizeInput = document.getElementById('maze-size');
     let size = parseInt(sizeInput.value);
 
@@ -175,7 +174,6 @@ document.getElementById('clear-btn').addEventListener('click', () => {
 });
 
 
-
 function solveAndVisualize(algorithms, maze) {
     if (animationRunning) return;
     animationRunning = true;
@@ -200,8 +198,8 @@ function animateSolutions(solutions, maze) {
     const paths = {};
     const activeAlgorithms = {};
     Object.keys(solutions).forEach(alg => {
-        positions[alg] = { ...startPos };
-        paths[alg] = [{ ...startPos }];
+        positions[alg] = {...startPos};
+        paths[alg] = [{...startPos}];
         activeAlgorithms[alg] = true;
     });
 
@@ -232,7 +230,7 @@ function animateSolutions(solutions, maze) {
 
                 if (isValidPosition(newPos, maze)) {
                     positions[alg] = newPos;
-                    paths[alg].push({ ...newPos });
+                    paths[alg].push({...newPos});
                 }
             }
 
@@ -321,7 +319,7 @@ function animateSolutions(solutions, maze) {
 function findStartPosition(maze) {
     for (let y = 0; y < maze.length; y++) {
         for (let x = 0; x < maze[y].length; x++) {
-            if (maze[y][x] === 'S') return { x, y };
+            if (maze[y][x] === 'S') return {x, y};
         }
     }
     return null;
@@ -330,7 +328,7 @@ function findStartPosition(maze) {
 function findEndPosition(maze) {
     for (let y = 0; y < maze.length; y++) {
         for (let x = 0; x < maze[y].length; x++) {
-            if (maze[y][x] === 'E') return { x, y };
+            if (maze[y][x] === 'E') return {x, y};
         }
     }
     return null;
@@ -338,11 +336,16 @@ function findEndPosition(maze) {
 
 function getNewPosition(pos, direction) {
     switch (direction) {
-        case 'U': return { x: pos.x, y: pos.y - 1 };
-        case 'D': return { x: pos.x, y: pos.y + 1 };
-        case 'L': return { x: pos.x - 1, y: pos.y };
-        case 'R': return { x: pos.x + 1, y: pos.y };
-        default: return { ...pos };
+        case 'U':
+            return {x: pos.x, y: pos.y - 1};
+        case 'D':
+            return {x: pos.x, y: pos.y + 1};
+        case 'L':
+            return {x: pos.x - 1, y: pos.y};
+        case 'R':
+            return {x: pos.x + 1, y: pos.y};
+        default:
+            return {...pos};
     }
 }
 
@@ -360,76 +363,53 @@ function isValidPosition(pos, maze) {
 
 document.getElementById('ranking-btn').addEventListener('click', function () {
     try {
-        const rankingTable = ranker.create_ranking()
         document.getElementById('ranking-error').textContent = ""
-        //visualizeRanking(rankingTable)
+        visualizeRanking(ranker.create_ranking())
     } catch (err) {
         document.getElementById('ranking-error').textContent = `Error: ${err.message}`
     }
 });
 
 function visualizeRanking(rankingTable) {
-    const canvas = document.getElementById('ranking-sqr');
-    const ctx = canvas.getContext('2d');
-    const container = document.getElementById('ranking-container');
-    const errorEl = document.getElementById('ranking-error');
+    const canvas = document.getElementById('ranking-sqr')
+    const ctx = canvas.getContext('2d')
+    const container = document.getElementById('ranking-container')
 
-    try {
-        const rows = rankingTable.length;
-        const cols = rankingTable[0].length;
+    const rows = field.length
+    const cols = field[0].length
 
-        // Configuration
-        const minCellSize = 25;
-        const preferredCellSize = 40;
-        const maxCellSize = 100;
+    const minCellSize = 10
+    const preferredCellSize = 30
+    const maxViewportRatio = 0.8
 
-        // Calculate available space (with padding)
-        const availableWidth = container.clientWidth - 40;
-        const availableHeight = container.clientHeight - 40;
+    const maxViewportWidth = window.innerWidth * maxViewportRatio
+    const maxViewportHeight = window.innerHeight * maxViewportRatio
 
-        // Calculate cell size that fits available space
-        let cellSize = Math.min(
-            availableWidth / cols,
-            availableHeight / rows,
-            preferredCellSize
-        );
+    let cellSize = Math.min(
+        maxViewportWidth / cols,
+        maxViewportHeight / rows,
+        preferredCellSize
+    )
 
-        // Enforce size constraints
-        cellSize = Math.max(minCellSize, Math.min(maxCellSize, cellSize));
+    cellSize = Math.max(minCellSize, cellSize)
 
-        // Set canvas dimensions
-        canvas.width = cols * cellSize;
-        canvas.height = rows * cellSize;
+    canvas.width = cols * cellSize
+    canvas.height = rows * cellSize
 
-        // Clear canvas
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-        // Draw maze
-        for (let y = 0; y < rows; y++) {
-            for (let x = 0; x < cols; x++) {
-                const content = rankingTable[y][x];
-                switch (char.toUpperCase()) {
-                    case 'X':
-                        ctx.fillStyle = '#333';
-                        break;
-                    case 'S':
-                        ctx.fillStyle = '#e74c3c';
-                        break;
-                    case 'E':
-                        ctx.fillStyle = '#2ecc71';
-                        break;
-                    case ' ':
-                        ctx.fillStyle = '#fff';
-                        break;
-                    default:
-                        ctx.fillStyle = '#ddd'; // Unknown characters
-                }
-                ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
-                ctx.strokeStyle = '#eee';
-                ctx.strokeRect(x * cellSize, y * cellSize, cellSize, cellSize);
+    for (let y = 0; y < rows; y++) {
+        for (let x = 0; x < cols; x++) {
+            const content = rankingTable[y][x]
+
+            if (x > 0 && y > 0) {
+                ctx.fillStyle = '#00ff00' // TODO change
+                ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize)
+                ctx.strokeStyle = '#eeeeee'
+                ctx.strokeRect(x * cellSize, y * cellSize, cellSize, cellSize)
             }
+
+            // TODO add text
         }
-    } catch (err) {
-        errorEl.textContent = `Error: ${err.message}`;
     }
 }
