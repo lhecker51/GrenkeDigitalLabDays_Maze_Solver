@@ -2,12 +2,13 @@
 import { generator } from '../backend/generator.js';
 import { solver } from "../backend/solver.js";
 import { RandomStrategy } from "../strategies/random.js";
-import {HoldLeftStrategy} from "../strategies/hold_left.js";
-import {HoldRightStrategy} from "../strategies/hold_right.js"
+import { HoldLeftStrategy } from "../strategies/hold_left.js";
+import { HoldRightStrategy } from "../strategies/hold_right.js"
+import { DfsStrategy } from "../strategies/directed_dfs.js"
 
 let currentAnimationSpeed = 500;
 
-document.getElementById('speed-slider').addEventListener('input', function() {
+document.getElementById('speed-slider').addEventListener('input', function () {
     currentAnimationSpeed = parseInt(this.value);
     document.getElementById('speed-value').textContent = `${currentAnimationSpeed}ms`;
 });
@@ -121,19 +122,20 @@ document.getElementById('generate-btn').addEventListener('click', function () {
 const ALGORITHM_COLORS = {
     'HoldLeftStrategy': '#3498db',
     'HoldRightStrategy': '#e67e22',
-    'RandomStrategy': '#9b59b6'
+    'RandomStrategy': '#9b59b6',
+    "DFSStrategy": '#42a853'
 };
 
-document.getElementById('solve-btn').addEventListener('click', function() {
+document.getElementById('solve-btn').addEventListener('click', function () {
     if (!window.lastMaze) {
         document.getElementById('error').textContent = "Please generate a maze first";
         return;
     }
-    
+
     const selectedAlgorithms = Array.from(
         document.querySelectorAll('input[name="algorithm"]:checked')
     ).map(el => el.value);
-    
+
     if (selectedAlgorithms.length === 0) {
         document.getElementById('error').textContent = "Please select at least one algorithm";
         return;
@@ -143,18 +145,19 @@ document.getElementById('solve-btn').addEventListener('click', function() {
     const strategyMap = {
         'LeftHand': HoldLeftStrategy,
         'RightHand': HoldRightStrategy,
-        'RandomWalk': RandomStrategy
+        'RandomWalk': RandomStrategy,
+        'DFS': DfsStrategy,
     };
 
     const selectedStrategies = selectedAlgorithms.map(alg => {
         const StrategyClass = strategyMap[alg];
         return new StrategyClass();
     });
-    
+
     solveAndVisualize(selectedStrategies, window.lastMaze);
 });
 
-document.getElementById('clear-btn').addEventListener('click', function() {
+document.getElementById('clear-btn').addEventListener('click', function () {
     if (window.lastMaze) {
         visualizePattern(window.lastMaze);
     }
@@ -171,15 +174,15 @@ function solveAndVisualize(algorithms, maze) {
     if (window.animationInterval) {
         clearInterval(window.animationInterval);
     }
-    
+
     visualizePattern(maze);
-    
+
     // Get solutions from the actual solvers
     const solutions = {};
     algorithms.forEach(alg => {
         solutions[alg.constructor.name] = solver.solve(maze, alg);
     });
-    
+
     animateSolutions(solutions, maze);
 }
 
@@ -189,7 +192,7 @@ function animateSolutions(solutions, maze) {
     const cellSize = canvas.width / maze[0].length;
     const startPos = findStartPosition(maze);
     const endPos = findEndPosition(maze);
-    
+
     const positions = {};
     const paths = {};
     const activeAlgorithms = {};
@@ -198,51 +201,51 @@ function animateSolutions(solutions, maze) {
         paths[alg] = [{ ...startPos }];
         activeAlgorithms[alg] = true;
     });
-    
+
     let currentStep = 0;
     const maxSteps = Math.max(...Object.values(solutions).map(s => s.length));
-    
+
     // Clear any existing animation
     if (window.animationInterval) {
         clearInterval(window.animationInterval);
     }
-    
+
     // Initial draw
     redrawCanvas();
-    
+
     // Start animation
     window.animationInterval = setInterval(() => {
         redrawCanvas();
-        
+
         let allFinished = true;
-        
+
         Object.keys(solutions).forEach(alg => {
             if (!activeAlgorithms[alg]) return;
-            
+
             // Check if reached end
             if (maze[positions[alg].y][positions[alg].x] === 'E') {
                 activeAlgorithms[alg] = false;
                 return;
             }
-            
+
             // Move to next step if available
             if (currentStep < solutions[alg].length) {
                 const direction = solutions[alg][currentStep];
                 const newPos = getNewPosition(positions[alg], direction);
-                
+
                 if (isValidPosition(newPos, maze)) {
                     positions[alg] = newPos;
                     paths[alg].push({ ...newPos });
                 }
             }
-            
+
             if (activeAlgorithms[alg]) {
                 allFinished = false;
             }
         });
-        
+
         currentStep++;
-        
+
         // Stop animation when all algorithms finish or we exceed max steps
         if (allFinished || currentStep > maxSteps) {
             clearInterval(window.animationInterval);
@@ -250,16 +253,16 @@ function animateSolutions(solutions, maze) {
             redrawCanvas();
         }
     }, currentAnimationSpeed);
-    
+
     function redrawCanvas() {
         // Clear and redraw maze
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         visualizePattern(maze);
-        
+
         // Draw paths and current positions
         Object.keys(solutions).forEach(alg => {
             if (!activeAlgorithms[alg] && paths[alg].length === 0) return;
-            
+
             // Draw path
             ctx.strokeStyle = ALGORITHM_COLORS[alg];
             ctx.lineWidth = cellSize * 0.2;
@@ -268,7 +271,7 @@ function animateSolutions(solutions, maze) {
                 (paths[alg][0].x + 0.5) * cellSize,
                 (paths[alg][0].y + 0.5) * cellSize
             );
-            
+
             for (let i = 1; i < paths[alg].length; i++) {
                 ctx.lineTo(
                     (paths[alg][i].x + 0.5) * cellSize,
@@ -276,14 +279,14 @@ function animateSolutions(solutions, maze) {
                 );
             }
             ctx.stroke();
-            
+
             // Draw current position
             if (activeAlgorithms[alg]) {
                 drawMarker(alg, positions[alg]);
             }
         });
     }
-    
+
     function drawMarker(alg, pos) {
         ctx.fillStyle = ALGORITHM_COLORS[alg];
         ctx.beginPath();
@@ -295,7 +298,7 @@ function animateSolutions(solutions, maze) {
             Math.PI * 2
         );
         ctx.fill();
-        
+
         ctx.fillStyle = '#fff';
         ctx.font = `bold ${cellSize * 0.3}px Arial`;
         ctx.textAlign = 'center';
@@ -342,13 +345,13 @@ function isValidPosition(pos, maze) {
     if (pos.y < 0 || pos.y >= maze.length || pos.x < 0 || pos.x >= maze[0].length) {
         return false;
     }
-    
+
     // Check if it's a wall
     return maze[pos.y][pos.x] !== 'X';
 }
 
 // Update Generator to store maze
-Generator.printField = function(field) {
+Generator.printField = function (field) {
     window.lastMaze = field;
     visualizePattern(field);
 };
