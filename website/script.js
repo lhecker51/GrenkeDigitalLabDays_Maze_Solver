@@ -214,7 +214,16 @@ function animateSolutions(solutions, maze) {
     let currentStep = 0;
     const maxSteps = Math.max(...Object.values(solutions).map(s => s.length));
     
-    function animationFrame() {
+    // Clear any existing interval
+    if (window.animationInterval) {
+        clearInterval(window.animationInterval);
+    }
+    
+    // Draw initial positions
+    drawAllMarkers();
+    
+    // Start new interval
+    window.animationInterval = setInterval(() => {
         // Clear only the algorithm markers area
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         visualizePattern(maze);
@@ -249,9 +258,17 @@ function animateSolutions(solutions, maze) {
         
         currentStep++;
         
-        if (!allFinished && currentStep <= maxSteps + 10) { // +10 for final drawing
-            window.animationFrameId = requestAnimationFrame(animationFrame);
+        if (allFinished || currentStep > maxSteps + 10) {
+            clearInterval(window.animationInterval);
         }
+    }, 500); // 500ms = 0.5 second delay
+    
+    function drawAllMarkers() {
+        Object.keys(solutions).forEach(alg => {
+            if (activeAlgorithms[alg]) {
+                drawMarker(alg, positions[alg]);
+            }
+        });
     }
     
     function drawMarker(alg, pos) {
@@ -276,9 +293,6 @@ function animateSolutions(solutions, maze) {
             (pos.y + 0.5) * cellSize
         );
     }
-    
-    // Start animation
-    window.animationFrameId = requestAnimationFrame(animationFrame);
 }
 
 // Helper functions
