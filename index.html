@@ -23,6 +23,7 @@
                 <label>Choose strategy type:</label>
                 <select id="generator-select">
                     <option>DFS</option>
+                    <option>Prim</option>
                     <option>Kruskal</option>
                     <option>Wilson</option>
                 </select>
@@ -40,14 +41,17 @@
                     <input type="checkbox" id="select-all" name="select-all">
                     <label for="select-all">Select All</label>
                     <br>
+                    <input type="checkbox" name="algorithm" value="RandomWalk" id="random-walk">
+                    <label for="random-walk" id="random">True Random</label>
+                    <br>
+                    <input type="checkbox" name="algorithm" value="SemiRandom" id="semi-random">
+                    <label for="semi-random" id="semirandom">Semi-Random</label>
+                    <br>
                     <input type="checkbox" name="algorithm" value="LeftHand" id="left-hand">
                     <label for="left-hand" id="lefthand">Hold Left</label>
                     <br>
                     <input type="checkbox" name="algorithm" value="RightHand" id="right-hand">
                     <label for="right-hand" id="righthand">Hold Right</label>
-                    <br>
-                    <input type="checkbox" name="algorithm" value="RandomWalk" id="random-walk">
-                    <label for="random-walk" id="random">Random</label>
                     <br>
                     <input type="checkbox" name="algorithm" value="DFS" id="dfs">
                     <label for="dfs" id="dfslabel">DFS</label>

@@ -2,6 +2,7 @@ import { generator } from '../backend/generator.js';
 import { solver } from "../backend/solver.js";
 import { ranker } from "../backend/ranker.js";
 import { RandomStrategy } from "../strategies/random.js";
+import {SemiRandomStrategy} from "../strategies/semi_random.js";
 import { HoldLeftStrategy } from "../strategies/hold_left.js";
 import { HoldRightStrategy } from "../strategies/hold_right.js"
 import { DfsStrategy } from "../strategies/directed_dfs.js"
@@ -122,12 +123,10 @@ document.getElementById('generate-btn').addEventListener('click', function () {
         var maze = []
         console.log(generationAlgo)
         switch (generationAlgo) {
-            case "DFS":
-                maze = generator.generateDfs(size)
-            case "Kruskal":
-                maze = generator.generateKruskal(size)
-            case "Wilson":
-                maze = generator.generateWilson(size)
+            case "DFS": maze = generator.generateDfs(size)
+            case "Prim": maze = generator.generatePrim(size)
+            case "Kruskal": maze = generator.generateKruskal(size)
+            case "Wilson": maze = generator.generateWilson(size)
         }
         window.lastMaze = maze; // Store for resize handling
         visualizePattern(maze);
@@ -138,9 +137,10 @@ document.getElementById('generate-btn').addEventListener('click', function () {
 
 //SECTION FOR MAZE SOLVING
 const ALGORITHM_COLORS = {
+    'RandomStrategy': '#2196F35C',
+    "SemiRandomStrategy": '#83BC144B',
     'HoldLeftStrategy': '#F4433657',
     'HoldRightStrategy': '#9C27B04A',
-    'RandomStrategy': '#2196F35C',
     "DfsStrategy": '#00968854'
 };
 
@@ -161,9 +161,10 @@ document.getElementById('solve-btn').addEventListener('click', function () {
 
     // Map checkbox values to actual strategy classes
     const strategyMap = {
+        'RandomWalk': RandomStrategy,
+        'SemiRandom': SemiRandomStrategy,
         'LeftHand': HoldLeftStrategy,
         'RightHand': HoldRightStrategy,
-        'RandomWalk': RandomStrategy,
         'DFS': DfsStrategy,
     };
 

@@ -138,16 +138,20 @@ button:not([disabled]):hover {
     text-align: right;
 }
 
+#random {
+    color: #2196F3;
+}
+
+#semirandom {
+    color: #83BC14;
+}
+
 #lefthand {
     color: #AD625C;
 }
 
 #righthand {
     color: #7C4385E6;
-}
-
-#random {
-    color: #2196F3;
 }
 
 #dfslabel {
