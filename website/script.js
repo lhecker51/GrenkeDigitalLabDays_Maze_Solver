@@ -1,9 +1,17 @@
+<<<<<<< HEAD
 // script.js
 import { generator } from '../backend/generator.js';
 import { solver } from "../backend/solver.js";
 import { RandomStrategy } from "../strategies/random.js";
 import {HoldLeftStrategy} from "../strategies/hold_left.js";
 import {HoldRightStrategy} from "../strategies/hold_right.js"
+=======
+import { generator } from '../backend/generator.js'
+import { solver } from "../backend/solver.js"
+import { RandomStrategy } from "../strategies/random.js"
+import { HoldLeftStrategy } from "../strategies/hold_left.js"
+import { HoldRightStrategy } from "../strategies/hold_right.js"
+>>>>>>> ed5350245c7e4fbc8ca0caaa103524d9f4b5e2e4
 
 let currentAnimationSpeed = 500;
 
