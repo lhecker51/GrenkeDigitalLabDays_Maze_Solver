@@ -401,13 +401,12 @@ document.getElementById('ranking-btn').addEventListener('click', function () {
 function visualizeRanking(rankingTable) {
     const canvas = document.getElementById('ranking-sqr')
     const ctx = canvas.getContext('2d')
-    const container = document.getElementById('ranking-container')
 
-    const rows = field.length
-    const cols = field[0].length
+    const rows = rankingTable.length
+    const cols = rankingTable[0].length
 
     const minCellSize = 10
-    const preferredCellSize = 30
+    const preferredCellSize = 100
     const maxViewportRatio = 0.8
 
     const maxViewportWidth = window.innerWidth * maxViewportRatio
@@ -430,12 +429,20 @@ function visualizeRanking(rankingTable) {
         for (let x = 0; x < cols; x++) {
             const content = rankingTable[y][x]
 
-            if (x > 0 && y > 0) {
+            if (x === 0 && y === 0) {
+                continue
+            }
+
+            if (x === 0 || y === 0) {
+                ctx.fillStyle = '#aaaaaa' // TODO change
+                ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize)
+            } else {
                 ctx.fillStyle = '#00ff00' // TODO change
                 ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize)
-                ctx.strokeStyle = '#eeeeee'
-                ctx.strokeRect(x * cellSize, y * cellSize, cellSize, cellSize)
             }
+
+            ctx.strokeStyle = '#eeeeee'
+            ctx.strokeRect(x * cellSize, y * cellSize, cellSize, cellSize)
 
             // TODO add text
         }
