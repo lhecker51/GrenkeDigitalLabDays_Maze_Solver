@@ -31,7 +31,7 @@ export class DfsStrategy extends Strategy {
         }
         this.path.pop()
         var prev = this.path[this.path.length - 1]
-        var dir = dirs[this.visitedString([prev[0] - this.cur[0], prev[1] - dir[1]])]
+        var dir = dirs[this.visitedString([prev[0] - this.cur[0], prev[1] - this.cur[1]])]
         this.cur = prev
         return dir
     }

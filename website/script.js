@@ -96,6 +96,12 @@ window.addEventListener('resize', function () {
 
 // Handle generate button click
 document.getElementById('generate-btn').addEventListener('click', function () {
+    if (window.lastMaze) {
+        visualizePattern(window.lastMaze);
+    }
+    if (window.animationInterval) {
+        clearInterval(window.animationInterval);
+    }
     const sizeInput = document.getElementById('maze-size');
     let size = parseInt(sizeInput.value);
 
@@ -123,7 +129,7 @@ const ALGORITHM_COLORS = {
     'HoldLeftStrategy': '#3498db',
     'HoldRightStrategy': '#e67e22',
     'RandomStrategy': '#9b59b6',
-    "DFSStrategy": '#42a853'
+    "DfsStrategy": '#42a853'
 };
 
 document.getElementById('solve-btn').addEventListener('click', function () {
@@ -164,10 +170,6 @@ document.getElementById('clear-btn').addEventListener('click', function () {
     if (window.animationInterval) {
         clearInterval(window.animationInterval);
     }
-    // Reset the slider to default
-    document.getElementById('speed-slider').value = 500;
-    document.getElementById('speed-value').textContent = '500ms';
-    currentAnimationSpeed = 500;
 });
 
 function solveAndVisualize(algorithms, maze) {
@@ -349,9 +351,3 @@ function isValidPosition(pos, maze) {
     // Check if it's a wall
     return maze[pos.y][pos.x] !== 'X';
 }
-
-// Update Generator to store maze
-Generator.printField = function (field) {
-    window.lastMaze = field;
-    visualizePattern(field);
-};
