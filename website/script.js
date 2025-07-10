@@ -118,7 +118,17 @@ document.getElementById('generate-btn').addEventListener('click', function () {
     }
 
     try {
-        const maze = generator.generateDfs(size);
+        const generationAlgo = document.getElementById("generator-select").value
+        var maze = []
+        console.log(generationAlgo)
+        switch (generationAlgo) {
+            case "DFS":
+                maze = generator.generateDfs(size)
+            case "Kruskal":
+                maze = generator.generateKruskal(size)
+            case "Wilson":
+                maze = generator.generateWilson(size)
+        }
         window.lastMaze = maze; // Store for resize handling
         visualizePattern(maze);
     } catch (err) {
