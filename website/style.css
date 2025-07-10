@@ -7,6 +7,8 @@ body {
     align-items: center;
     min-height: 100vh;
     background-image: url("pixelart_for_maze.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     color: white;
     font-family: monospace;
 }
