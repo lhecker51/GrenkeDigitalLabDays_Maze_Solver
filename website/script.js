@@ -52,29 +52,28 @@ function visualizePattern(field) {
 
         // Clear canvas
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-
         // Draw maze
         for (let y = 0; y < rows; y++) {
             for (let x = 0; x < cols; x++) {
                 const char = field[y][x];
                 switch (char.toUpperCase()) {
                     case 'X':
-                        ctx.fillStyle = '#333';
+                        ctx.fillStyle = '#3e2353';
                         break;
                     case 'S':
-                        ctx.fillStyle = '#e74c3c';
+                        ctx.fillStyle = '#A53E36';
                         break;
                     case 'E':
-                        ctx.fillStyle = '#2ecc71';
+                        ctx.fillStyle = '#93B56CD9';
                         break;
                     case ' ':
-                        ctx.fillStyle = '#fff';
+                        ctx.fillStyle = '#DDAECE';
                         break;
                     default:
                         ctx.fillStyle = '#ddd'; // Unknown characters
                 }
                 ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
-                ctx.strokeStyle = '#eee';
+                ctx.strokeStyle = '#fbf8be';
                 ctx.strokeRect(x * cellSize, y * cellSize, cellSize, cellSize);
             }
         }
