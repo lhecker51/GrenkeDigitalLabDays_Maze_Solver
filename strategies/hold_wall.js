@@ -3,8 +3,8 @@
 import {Strategy} from "../backend/utils.js";
 
 export class HoldWallStrategy extends Strategy {
-    constructor() {
-        super();
+    constructor(name) {
+        super(name);
         this.previousDirection = "U";
     }
 
