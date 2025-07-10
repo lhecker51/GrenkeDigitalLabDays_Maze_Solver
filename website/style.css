@@ -9,6 +9,7 @@ body {
     url("pixelart_for_maze.png");
     background-repeat: no-repeat;
     background-attachment: fixed;
+    background-size: cover;
     color: white;
     font-family: JetBrains Mono;
 }
