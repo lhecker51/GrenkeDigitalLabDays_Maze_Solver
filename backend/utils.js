@@ -2,17 +2,24 @@
 
 export class Position {
     constructor(x, y) {
-        this.x = x;
-        this.y = y;
+        this.x = x
+        this.y = y
     }
 }
 
 export class Environment {
     constructor(u, d, l, r) {
-        this.u = u;
-        this.d = d;
-        this.l = l;
-        this.r = r;
+        this.u = u
+        this.d = d
+        this.l = l
+        this.r = r
+    }
+}
+
+export class LabyrinthCategory {
+    constructor(name, labyrinths) {
+        this.name = name
+        this.labyrinths = labyrinths
     }
 }
 

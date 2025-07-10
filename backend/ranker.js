@@ -5,25 +5,33 @@ import {solver} from "./solver.js";
 import {RandomStrategy} from "../strategies/random.js";
 import {HoldLeftStrategy} from "../strategies/hold_left.js";
 import {HoldRightStrategy} from "../strategies/hold_right.js";
+import {LabyrinthCategory} from "./utils.js";
 
-function create_ranking() {
-    const labyrinths = [];
-    const strategies = [];
+export class ranker {
+    static create_ranking() {
+        const labyrinthCategories = [
+            this.getLabyrinthCategory("DFS_7", () => generator.generateDfs(7), 10),
+            this.getLabyrinthCategory("Kruskal_7", () => generator.generateKruskal(7), 10),
+            this.getLabyrinthCategory("Wilson_7", () => generator.generateWilson(7), 10),
+            this.getLabyrinthCategory("DFS_15", () => generator.generateDfs(15), 10),
+            this.getLabyrinthCategory("Kruskal_15", () => generator.generateKruskal(15), 10),
+            this.getLabyrinthCategory("Wilson_15", () => generator.generateWilson(15), 10),
+        ]
 
-    for (let i = 0; i < 10; i++) {
-        labyrinths.push(generator.generateDfs(11));
+        const strategies = [
+            new RandomStrategy(),
+            new HoldLeftStrategy(),
+            new HoldRightStrategy()
+        ]
+
+        // TODO implement ranking
     }
 
-    strategies.push(new RandomStrategy());
-    strategies.push(new HoldLeftStrategy());
-    strategies.push(new HoldRightStrategy());
-
-    for (let labyrinth of labyrinths) {
-        for (let strategy of strategies) {
-            console.log(solver.solve(labyrinth, strategy)); // TODO change this
+    static getLabyrinthCategory(name, generatingFunction, labyrinthCount) {
+        const labyrinths = []
+        for (let i = 0; i < labyrinthCount; i++) {
+            labyrinths.push(generatingFunction())
         }
+        return new LabyrinthCategory(name, labyrinths)
     }
 }
-
-
-create_ranking();
