@@ -116,13 +116,32 @@ h1 {
 #dfslabel {
     color: #009688;
 }
-#ranking_container {
-    display: flex;
-    justify-content: center;
-}
-#ranking-sqr {
-    background-color: red;
-    width: 30%;
+
+/* Emilias Bereich */
+
+#ranking-btn {
     margin: 10px;
+}
+
+#ranking-container {
+    display: flex;
+    justify-content: flex-start;  /* center? */
+    border: 3px solid #333;
+    background: white;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    overflow: auto;
+    max-width: 95vw;
+    max-height: 80vh;
+    align-items: center;
+}
+
+#ranking-sqr {
+    background-color: white;
+    display: block;
+    margin: 10px;
+    /*
+    width: 500px;
     height: 500px;
+    */
 }

@@ -1,6 +1,7 @@
 // script.js
 import { generator } from '../backend/generator.js';
 import { solver } from "../backend/solver.js";
+import {ranker} from "../backend/ranker.js";
 import { RandomStrategy } from "../strategies/random.js";
 import { HoldLeftStrategy } from "../strategies/hold_left.js";
 import { HoldRightStrategy } from "../strategies/hold_right.js"
@@ -353,4 +354,82 @@ function isValidPosition(pos, maze) {
 
     // Check if it's a wall
     return maze[pos.y][pos.x] !== 'X';
+}
+
+// Emilias Bereich
+
+document.getElementById('ranking-btn').addEventListener('click', function () {
+    try {
+        const rankingTable = ranker.create_ranking()
+        document.getElementById('ranking-error').textContent = ""
+        //visualizeRanking(rankingTable)
+    } catch (err) {
+        document.getElementById('ranking-error').textContent = `Error: ${err.message}`
+    }
+});
+
+function visualizeRanking(rankingTable) {
+    const canvas = document.getElementById('ranking-sqr');
+    const ctx = canvas.getContext('2d');
+    const container = document.getElementById('ranking-container');
+    const errorEl = document.getElementById('ranking-error');
+
+    try {
+        const rows = rankingTable.length;
+        const cols = rankingTable[0].length;
+
+        // Configuration
+        const minCellSize = 25;
+        const preferredCellSize = 40;
+        const maxCellSize = 100;
+
+        // Calculate available space (with padding)
+        const availableWidth = container.clientWidth - 40;
+        const availableHeight = container.clientHeight - 40;
+
+        // Calculate cell size that fits available space
+        let cellSize = Math.min(
+            availableWidth / cols,
+            availableHeight / rows,
+            preferredCellSize
+        );
+
+        // Enforce size constraints
+        cellSize = Math.max(minCellSize, Math.min(maxCellSize, cellSize));
+
+        // Set canvas dimensions
+        canvas.width = cols * cellSize;
+        canvas.height = rows * cellSize;
+
+        // Clear canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw maze
+        for (let y = 0; y < rows; y++) {
+            for (let x = 0; x < cols; x++) {
+                const content = rankingTable[y][x];
+                switch (char.toUpperCase()) {
+                    case 'X':
+                        ctx.fillStyle = '#333';
+                        break;
+                    case 'S':
+                        ctx.fillStyle = '#e74c3c';
+                        break;
+                    case 'E':
+                        ctx.fillStyle = '#2ecc71';
+                        break;
+                    case ' ':
+                        ctx.fillStyle = '#fff';
+                        break;
+                    default:
+                        ctx.fillStyle = '#ddd'; // Unknown characters
+                }
+                ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+                ctx.strokeStyle = '#eee';
+                ctx.strokeRect(x * cellSize, y * cellSize, cellSize, cellSize);
+            }
+        }
+    } catch (err) {
+        errorEl.textContent = `Error: ${err.message}`;
+    }
 }
