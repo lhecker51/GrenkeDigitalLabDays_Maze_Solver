@@ -456,7 +456,9 @@ function visualizeRanking(rankingTable) {
 document.getElementById('ranking-btn').addEventListener('click', function () {
     try {
         document.getElementById('error').textContent = ""
-        generateRankingTable(ranker.create_ranking(15))
+        const sizeInput = document.getElementById('maze-size')
+        const size = parseInt(sizeInput.value)
+        generateRankingTable(ranker.create_ranking(size))
     } catch (err) {
         document.getElementById('error').textContent = `Error: ${err.message}`
     }
