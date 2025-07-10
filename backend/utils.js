@@ -24,6 +24,10 @@ export class LabyrinthCategory {
 }
 
 export class Strategy {
+    constructor(name) {
+        this.name = name
+    }
+
      getDirection(environment) {
         if (environment.u === 'E') return 'U'
         if (environment.d === 'E') return 'D'

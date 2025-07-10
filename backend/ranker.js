@@ -24,7 +24,21 @@ export class ranker {
             new HoldRightStrategy()
         ]
 
-        // TODO implement ranking
+        const firstRow = [""]
+        for (let labyrinthCategory of labyrinthCategories) {
+            firstRow.push(labyrinthCategory.name)
+        }
+        const rankingTable = [firstRow]
+
+        for (let strategy of strategies) {
+            let row = [strategy.name]
+            for (let labyrinthCategory of labyrinthCategories) {
+                row.push(this.getAverageSteps(labyrinthCategory, strategy))
+            }
+            rankingTable.push(row)
+        }
+
+        console.log(rankingTable)  // TODO change output
     }
 
     static getLabyrinthCategory(name, generatingFunction, labyrinthCount) {
@@ -32,6 +46,21 @@ export class ranker {
         for (let i = 0; i < labyrinthCount; i++) {
             labyrinths.push(generatingFunction())
         }
+
         return new LabyrinthCategory(name, labyrinths)
+    }
+
+    static getAverageSteps(labyrinthCategory, strategy) {
+        const steps = []
+        for (let labyrinth of labyrinthCategory.labyrinths) {
+            steps.push(solver.solve(labyrinth, strategy).length)
+        }
+
+        let totalCount = 0
+        for (let step of steps) {
+            totalCount += step
+        }
+
+        return totalCount / steps.length
     }
 }

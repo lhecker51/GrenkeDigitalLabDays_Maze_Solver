@@ -3,6 +3,10 @@
 import { Strategy } from "../backend/utils.js";
 
 export class RandomStrategy extends Strategy {
+    constructor() {
+        super("Random");
+    }
+
     calculateDirection(environment) {
         let direction = this.getRandomDirection()
         while (!this.checkDirection(environment, direction)) {

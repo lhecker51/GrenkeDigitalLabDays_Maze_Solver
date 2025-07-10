@@ -3,10 +3,8 @@
 import { Strategy } from "../backend/utils.js";
 
 export class DfsStrategy extends Strategy {
-
-
     constructor() {
-        super();
+        super("Directed DFS");
         this.visited = new Set()
         this.cur = [0, 0]
         this.path = [[0, 0]]

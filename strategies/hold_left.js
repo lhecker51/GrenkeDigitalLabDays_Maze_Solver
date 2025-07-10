@@ -3,6 +3,10 @@
 import {HoldWallStrategy} from "./hold_wall.js";
 
 export class HoldLeftStrategy extends HoldWallStrategy {
+    constructor() {
+        super("Hold Left");
+    }
+
     getPreferredNextDirections(direction) {
         switch (direction) {
             case "U": return ["L", "U", "R", "D"]
