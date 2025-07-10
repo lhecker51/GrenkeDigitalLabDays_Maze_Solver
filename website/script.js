@@ -370,17 +370,6 @@ function isValidPosition(pos, maze) {
     // Check if it's a wall
     return maze[pos.y][pos.x] !== 'X';
 }
-
-// Emilias Bereich
-
-document.getElementById('ranking-btn').addEventListener('click', function () {
-    try {
-        document.getElementById('ranking-error').textContent = ""
-        visualizeRanking(ranker.create_ranking())
-    } catch (err) {
-        document.getElementById('ranking-error').textContent = `Error: ${err.message}`
-    }
-});
 // Add Select All functionality
 document.getElementById('select-all').addEventListener('change', function(e) {
     const checkboxes = document.querySelectorAll('input[name="algorithm"]');
@@ -396,6 +385,17 @@ algorithmCheckboxes.forEach(checkbox => {
         const allChecked = document.querySelectorAll('input[name="algorithm"]:checked').length === algorithmCheckboxes.length;
         document.getElementById('select-all').checked = allChecked;
     });
+});
+
+// Emilias Bereich
+
+document.getElementById('ranking-btn').addEventListener('click', function () {
+    try {
+        document.getElementById('ranking-error').textContent = ""
+        visualizeRanking(ranker.create_ranking())
+    } catch (err) {
+        document.getElementById('ranking-error').textContent = `Error: ${err.message}`
+    }
 });
 
 function visualizeRanking(rankingTable) {
