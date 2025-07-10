@@ -189,7 +189,7 @@ export class generator {
 
     static printField(field) {
         for (let row of field) {
-            console.log(row.join(''));
+            //console.log(row.join(''));
         }
     }
 }
