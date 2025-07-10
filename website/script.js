@@ -2,7 +2,7 @@ import { generator } from '../backend/generator.js';
 
 let currentAnimationSpeed = 500;
 
-document.getElementById('speed-slider').addEventListener('input', function() {
+document.getElementById('speed-slider').addEventListener('input', function () {
     currentAnimationSpeed = parseInt(this.value);
     document.getElementById('speed-value').textContent = `${currentAnimationSpeed}ms`;
 });
@@ -103,7 +103,20 @@ document.getElementById('generate-btn').addEventListener('click', function () {
     }
 
     try {
-        const maze = generator.generateDfs(size);
+        const generatorSelect = document.getElementById('generator-select');
+        const selectedValue = generatorSelect.value;
+        var maze = [];
+        console.log(selectedValue)
+        switch (selectedValue) {
+            case "DFS":
+                maze = generator.generateDfs(size)
+            case "Kruskal":
+                maze = generator.generateKruskal(size)
+            case "Wilson":
+                maze = generator.generateWilson(size)
+            default:
+                Error("The selected generator does not exist")
+        }
         window.lastMaze = maze; // Store for resize handling
         visualizePattern(maze);
     } catch (err) {
@@ -114,7 +127,7 @@ document.getElementById('generate-btn').addEventListener('click', function () {
 //SECTION FOR MAZE SOLVING
 // Enhanced prototype with wall collision and proper termination
 const PROTOTYPE_PATHS = {
-    LeftHand: ['R', 'R', 'D', 'D', 'R', 'R', 'U', 'U', 'R', 'D', 'D', 'L', 'L', 'D', 'D', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R' ,'R', 'R', 'R', 'R', 'R'],
+    LeftHand: ['R', 'R', 'D', 'D', 'R', 'R', 'U', 'U', 'R', 'D', 'D', 'L', 'L', 'D', 'D', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R'],
     RightHand: ['D', 'D', 'R', 'R', 'U', 'U', 'R', 'D', 'D', 'R', 'R', 'D', 'D', 'L', 'L', 'D', 'D'],
     RandomWalk: ['R', 'D', 'R', 'U', 'R', 'D', 'L', 'D', 'R', 'D', 'R', 'U', 'R', 'D', 'D', 'R', 'R'],
     ShortestPath: ['R', 'R', 'D', 'D', 'R', 'R', 'D', 'D', 'R', 'R']
@@ -127,25 +140,25 @@ const ALGORITHM_COLORS = {
     'ShortestPath': '#2ecc71'
 };
 
-document.getElementById('solve-btn').addEventListener('click', function() {
+document.getElementById('solve-btn').addEventListener('click', function () {
     if (!window.lastMaze) {
         document.getElementById('error').textContent = "Please generate a maze first";
         return;
     }
-    
+
     const selectedAlgorithms = Array.from(
         document.querySelectorAll('input[name="algorithm"]:checked')
     ).map(el => el.value);
-    
+
     if (selectedAlgorithms.length === 0) {
         document.getElementById('error').textContent = "Please select at least one algorithm";
         return;
     }
-    
+
     solveAndVisualize(selectedAlgorithms, window.lastMaze);
 });
 
-document.getElementById('clear-btn').addEventListener('click', function() {
+document.getElementById('clear-btn').addEventListener('click', function () {
     if (window.lastMaze) {
         visualizePattern(window.lastMaze);
     }
@@ -162,12 +175,12 @@ function solveAndVisualize(algorithms, maze) {
     if (window.animationInterval) {
         clearInterval(window.animationInterval);
     }
-    
+
     visualizePattern(maze);
-    
+
     // Generate valid paths that respect walls
     const solutions = generateValidPaths(algorithms, maze);
-    
+
     animateSolutions(solutions, maze);
 }
 
@@ -175,34 +188,34 @@ function generateValidPaths(algorithms, maze) {
     const solutions = {};
     const startPos = findStartPosition(maze);
     const endPos = findEndPosition(maze);
-    
+
     algorithms.forEach(alg => {
         // Start with prototype path but validate each step
         const prototypePath = PROTOTYPE_PATHS[alg] || [];
         const validPath = [];
         let currentPos = { ...startPos };
         let reachedEnd = false;
-        
+
         for (const direction of prototypePath) {
             if (reachedEnd) break;
-            
+
             const newPos = getNewPosition(currentPos, direction);
-            
+
             // Check if new position is valid (not a wall and within bounds)
             if (isValidPosition(newPos, maze)) {
                 validPath.push(direction);
                 currentPos = newPos;
-                
+
                 // Check if we reached the end
                 if (maze[currentPos.y][currentPos.x] === 'E') {
                     reachedEnd = true;
                 }
             }
         }
-        
+
         solutions[alg] = validPath;
     });
-    
+
     return solutions;
 }
 
@@ -212,68 +225,68 @@ function animateSolutions(solutions, maze) {
     const cellSize = canvas.width / maze[0].length;
     const startPos = findStartPosition(maze);
     const endPos = findEndPosition(maze);
-    
+
     const positions = {};
     const activeAlgorithms = {};
     Object.keys(solutions).forEach(alg => {
         positions[alg] = { ...startPos };
         activeAlgorithms[alg] = true;
     });
-    
+
     let currentStep = 0;
     const maxSteps = Math.max(...Object.values(solutions).map(s => s.length));
-    
+
     // Clear any existing interval
     if (window.animationInterval) {
         clearInterval(window.animationInterval);
     }
-    
+
     // Draw initial positions
     drawAllMarkers();
-    
+
     // Start new interval with current speed
     window.animationInterval = setInterval(animationStep, currentAnimationSpeed);
-    
+
     function animationStep() {
         // Clear only the algorithm markers area
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         visualizePattern(maze);
-        
+
         let allFinished = true;
-        
+
         Object.keys(solutions).forEach(alg => {
             if (!activeAlgorithms[alg]) return;
-            
+
             // Check if current position is the end
             if (maze[positions[alg].y][positions[alg].x] === 'E') {
                 activeAlgorithms[alg] = false;
                 return;
             }
-            
+
             // Move if there are steps left
             if (currentStep < solutions[alg].length) {
                 const direction = solutions[alg][currentStep];
                 const newPos = getNewPosition(positions[alg], direction);
-                
+
                 if (isValidPosition(newPos, maze)) {
                     positions[alg] = newPos;
                 }
             }
-            
+
             // Draw marker if still active
             if (activeAlgorithms[alg]) {
                 drawMarker(alg, positions[alg]);
                 allFinished = false;
             }
         });
-        
+
         currentStep++;
-        
+
         if (allFinished || currentStep > maxSteps + 10) {
             clearInterval(window.animationInterval);
         }
     }
-    
+
     function drawAllMarkers() {
         Object.keys(solutions).forEach(alg => {
             if (activeAlgorithms[alg]) {
@@ -281,7 +294,7 @@ function animateSolutions(solutions, maze) {
             }
         });
     }
-    
+
     function drawMarker(alg, pos) {
         ctx.fillStyle = ALGORITHM_COLORS[alg];
         ctx.beginPath();
@@ -293,7 +306,7 @@ function animateSolutions(solutions, maze) {
             Math.PI * 2
         );
         ctx.fill();
-        
+
         ctx.fillStyle = '#fff';
         ctx.font = `bold ${cellSize * 0.3}px Arial`;
         ctx.textAlign = 'center';
@@ -340,13 +353,7 @@ function isValidPosition(pos, maze) {
     if (pos.y < 0 || pos.y >= maze.length || pos.x < 0 || pos.x >= maze[0].length) {
         return false;
     }
-    
+
     // Check if it's a wall
     return maze[pos.y][pos.x] !== 'X';
 }
-
-// Update Generator to store maze
-Generator.printField = function(field) {
-    window.lastMaze = field;
-    visualizePattern(field);
-};
