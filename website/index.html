@@ -55,19 +55,19 @@
                 <button id="solve-btn" type="button">Solve Maze</button>
                 <button id="clear-btn" type="reset">Clear Solutions</button>
             </fieldset>
+            <div class="speed-control">
+                <label for="speed-slider">Solver Speed:</label>
+                <input type="range" id="speed-slider" min="0" max="1000" value="500" step="50">
+                <span id="speed-value">500ms</span>
+            </div>
         </form>
         <div id="canvas-container">
             <canvas id="canvas"></canvas>
         </div>
     </div>
-    <div class="speed-control">
-        <label for="speed-slider">Solver Speed:</label>
-        <input type="range" id="speed-slider" min="0" max="1000" value="500" step="50">
-        <span id="speed-value">500ms</span>
-    </div>
-    </div>
     <!--Emilias Bereich-->
     <div>
+        <br>
         <button id="ranking-btn" value="RankingBtn">Generate Ranking</button>
     </div>
     <div id="ranking-container">
