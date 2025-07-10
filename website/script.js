@@ -29,23 +29,23 @@ function visualizePattern(field) {
         const cols = field[0].length;
 
         // Configuration
-        const minCellSize = 25;
-        const preferredCellSize = 40;
-        const maxCellSize = 100;
+        const minCellSize = 10;  // Reduced minimum cell size
+        const preferredCellSize = 30;  // Reduced preferred size
+        const maxViewportRatio = 0.8;  // Max percentage of viewport to use
 
-        // Calculate available space (with padding)
-        const availableWidth = container.clientWidth - 40;
-        const availableHeight = container.clientHeight - 40;
+        // Calculate maximum available space based on viewport
+        const maxViewportWidth = window.innerWidth * maxViewportRatio;
+        const maxViewportHeight = window.innerHeight * maxViewportRatio;
 
         // Calculate cell size that fits available space
         let cellSize = Math.min(
-            availableWidth / cols,
-            availableHeight / rows,
+            maxViewportWidth / cols,
+            maxViewportHeight / rows,
             preferredCellSize
         );
 
-        // Enforce size constraints
-        cellSize = Math.max(minCellSize, Math.min(maxCellSize, cellSize));
+        // Enforce minimum size
+        cellSize = Math.max(minCellSize, cellSize);
 
         // Set canvas dimensions
         canvas.width = cols * cellSize;
