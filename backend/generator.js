@@ -1,3 +1,5 @@
+"use strict";
+
 class UnionFind {
     constructor(size) {
         this.parent = Array.from({ length: size }, (_, i) => i);
@@ -112,7 +114,7 @@ export class generator {
         }
 
         for (let [i, j, mode] of usedWalls) {
-            if (mode == 1) {
+            if (mode === 1) {
                 field[2 * i + 1][2 * j + 2] = ' '
             } else {
                 field[2 * i + 2][2 * j + 1] = ' '

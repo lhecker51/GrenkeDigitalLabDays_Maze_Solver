@@ -1,4 +1,4 @@
-import { generator } from '../generator/generator.js';
+import { generator } from '../backend/generator.js';
 
 
 function visualizePattern(field) {

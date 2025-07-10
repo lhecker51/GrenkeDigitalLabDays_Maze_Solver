@@ -1,11 +1,18 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.RandomStrategy = void 0;
-const util_1 = require("../util");
-class RandomStrategy extends util_1.Strategy {
-    getDirection(environment) {
-        const index = Math.floor(4 * Math.random());
-        return ["U", "D", "L", "R"][index];
+
+import {Strategy} from "../backend/utils.js";
+
+export class RandomStrategy extends Strategy {
+    calculateDirection(environment) {
+        let direction = this.getRandomDirection()
+        while (!this.checkDirection(environment, direction)) {
+            direction = this.getRandomDirection()
+        }
+        return direction;
+    }
+
+    getRandomDirection() {
+        const index = Math.floor(4 * Math.random())
+        return ["U", "D", "L", "R"][index]
     }
 }
-exports.RandomStrategy = RandomStrategy;
