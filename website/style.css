@@ -63,7 +63,7 @@ h1 {
 #container_algorithm {
     display: flex;
     flex-direction: row;
-    margin-top: 10%;
+    margin-top: 5%;
     justify-content: center;
     width: 100%;
 }
@@ -83,7 +83,10 @@ h1 {
 }
 
 #choose_algorithm {
-    background-color: grey;
+    background-color: #9f7ac0;
+    border: none;
+    border-radius: 5pt;
+    padding-top: 20pt;
 }
 
 .speed-control {
