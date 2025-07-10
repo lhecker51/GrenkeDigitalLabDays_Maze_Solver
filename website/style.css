@@ -62,8 +62,9 @@ h1 {
     justify-content: space-between;
     align-items: center;
     width: 80%;
-    background-color: #B85F859E;
+    background-color: #F4D7AEA8;
     border-radius: 5px;
+    font-size: 15pt;
 }
 #container_generator {
     display: flex;
@@ -83,8 +84,48 @@ h1 {
     display: flex;
     align-items: center;
     gap: 10px;
+    background-color: #F4D7AEA8;
+    width: 80%;
+    height: 50px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    font-size: 15pt;
+}
+button {
+  background-color: #fbeee0;
+  border: 2px solid #422800;
+  border-radius: 30px;
+  box-shadow: #422800 4px 4px 0 0;
+  color: #422800;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 0 18px;
+  line-height: 50px;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
 }
 
+button:hover {
+  background-color: #fff;
+}
+
+button:active {
+  box-shadow: #422800 2px 2px 0 0;
+  transform: translate(2px, 2px);
+}
+
+@media (min-width: 768px) {
+  button {
+    min-width: 120px;
+    padding: 0 25px;
+  }
+}
 #choose_algorithm {
     
 }
@@ -99,11 +140,11 @@ h1 {
 }
 
 #lefthand {
-    color: #F44336;
+    color: #C36963;
 }
 
 #righthand {
-    color: #9C27B0;
+    color: #B667C3E6;
 }
 
 #random {
