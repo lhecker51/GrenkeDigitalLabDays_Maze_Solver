@@ -24,6 +24,9 @@
                 <button id="generate-btn">Generate Maze</button>
             </fieldset>
         </div>
+        <div id="controls">
+            <p id="error"></p>
+        </div>
         <div id="container_algorithm">
             <form name="Algorithm_chooser" id="algorithm_form">
                 <fieldset id="choose_algorithm">
@@ -41,13 +44,10 @@
                     <label for="dfs" id="dfslabel">DFS</label>
                     <br>
                     <button id="solve-btn" type="button">Solve Maze</button>
-                    <button id="clear-btn" type="button">Clear Solutions</button>
+                    <button id="clear-btn" type="reset">Clear Solutions</button>
                 </fieldset>
             </form>
             </form>
-            <div id="controls">
-                <p id="error"></p>
-            </div>
             <div id="canvas-container">
                 <canvas id="canvas"></canvas>
             </div>

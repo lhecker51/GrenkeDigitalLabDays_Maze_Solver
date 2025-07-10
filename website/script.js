@@ -126,10 +126,10 @@ document.getElementById('generate-btn').addEventListener('click', function () {
 
 //SECTION FOR MAZE SOLVING
 const ALGORITHM_COLORS = {
-    'HoldLeftStrategy': '#3498db',
-    'HoldRightStrategy': '#e67e22',
-    'RandomStrategy': '#9b59b6',
-    "DfsStrategy": '#42a853'
+    'HoldLeftStrategy': '#F4433657',
+    'HoldRightStrategy': '#9C27B04A',
+    'RandomStrategy': '#2196F35C',
+    "DfsStrategy": '#00968854'
 };
 
 document.getElementById('solve-btn').addEventListener('click', function () {
