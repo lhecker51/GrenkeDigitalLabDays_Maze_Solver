@@ -371,7 +371,7 @@ function isValidPosition(pos, maze) {
     return maze[pos.y][pos.x] !== 'X';
 }
 // Add Select All functionality
-document.getElementById('select-all').addEventListener('change', function(e) {
+document.getElementById('select-all').addEventListener('change', function (e) {
     const checkboxes = document.querySelectorAll('input[name="algorithm"]');
     checkboxes.forEach(checkbox => {
         checkbox.checked = e.target.checked;
@@ -381,7 +381,7 @@ document.getElementById('select-all').addEventListener('change', function(e) {
 // Add logic to uncheck "Select All" if any algorithm is unchecked
 const algorithmCheckboxes = document.querySelectorAll('input[name="algorithm"]');
 algorithmCheckboxes.forEach(checkbox => {
-    checkbox.addEventListener('change', function() {
+    checkbox.addEventListener('change', function () {
         const allChecked = document.querySelectorAll('input[name="algorithm"]:checked').length === algorithmCheckboxes.length;
         document.getElementById('select-all').checked = allChecked;
     });
