@@ -85,3 +85,12 @@ h1 {
     min-width: 60px;
     text-align: right;
 }
+#lefthand {
+    color: #3498db;
+}
+#righthand {
+    color: #e67e22;
+}
+#random {
+    color: #9b59b6;
+}

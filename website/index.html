@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +7,6 @@
     <link rel="stylesheet" href="style.css" type="text/css">
     <script src="script.js" defer type="module"></script>
     <script src="../backend/generator.js" defer type="module"></script>
-    <!--<script src="../solver/solver.ts" defer type="module"></script>-->
 </head>
 
 <body>
@@ -16,7 +14,7 @@
     <div id="container_generator">
         <fieldset>
             <legend>Settings Maze Generator</legend>
-            <select id="generator-select">
+            <select>
                 <option>DFS</option>
                 <option>Kruskal</option>
                 <option>Wilson</option>
@@ -28,37 +26,16 @@
     </div>
     <div id="container_algorithm">
         <form name="Algorithm_chooser" id="algorithm_form">
-    <fieldset id="choose_algorithm">
-        <legend id="algorithm_choose_header">Algorithm Types:</legend>
-        <input type="checkbox" name="algorithm" value="LeftHand" id="left-hand"> 
-        <label for="left-hand">Hold Left</label>
-        <br>
-        <input type="checkbox" name="algorithm" value="RightHand" id="right-hand">
-        <label for="right-hand">Hold Right</label>
-        <br>
-        <input type="checkbox" name="algorithm" value="RandomWalk" id="random-walk">
-        <label for="random-walk">Hold Wall</label>
-        <br>
-        <input type="checkbox" name="algorithm" value="ShortestPath" id="shortest-path">
-        <label for="shortest-path">Random</label>
-        <br>
-        <button id="solve-btn" type="button">Solve Maze</button>
-        <button id="clear-btn" type="button">Clear Solutions</button>
-    </fieldset>
-</form>
             <fieldset id="choose_algorithm">
                 <legend id="algorithm_choose_header">Algorithm Types:</legend>
-                <input type="checkbox" name="algorithm" value="LeftHand" id="left-hand">
-                <label for="left-hand">Left Hand Rule</label>
+                <input type="checkbox" name="algorithm" value="LeftHand" id="left-hand"> 
+                <label for="left-hand" id="lefthand">Left Hand Rule</label>
                 <br>
                 <input type="checkbox" name="algorithm" value="RightHand" id="right-hand">
-                <label for="right-hand">Right Hand Rule</label>
+                <label for="right-hand" id="righthand">Right Hand Rule</label>
                 <br>
                 <input type="checkbox" name="algorithm" value="RandomWalk" id="random-walk">
-                <label for="random-walk">Random Walk</label>
-                <br>
-                <input type="checkbox" name="algorithm" value="ShortestPath" id="shortest-path">
-                <label for="shortest-path">Shortest Path</label>
+                <label for="random-walk" id="random">Random Walk</label>
                 <br>
                 <button id="solve-btn" type="button">Solve Maze</button>
                 <button id="clear-btn" type="button">Clear Solutions</button>
@@ -76,7 +53,5 @@
             <span id="speed-value">500ms</span>
         </div>
     </div>
-    </div>
 </body>
-
 </html>
