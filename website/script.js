@@ -1,7 +1,7 @@
 // script.js
 import { generator } from '../backend/generator.js';
 import { solver } from "../backend/solver.js";
-import {ranker} from "../backend/ranker.js";
+import { ranker } from "../backend/ranker.js";
 import { RandomStrategy } from "../strategies/random.js";
 import { HoldLeftStrategy } from "../strategies/hold_left.js";
 import { HoldRightStrategy } from "../strategies/hold_right.js"
@@ -98,12 +98,12 @@ window.addEventListener('resize', function () {
 
 // Handle generate button click
 document.getElementById('generate-btn').addEventListener('click', function () {
-    if (window.lastMaze) {
-        visualizePattern(window.lastMaze);
+    animationRunning = false
+    if (window.animationTimeout) {
+        clearTimeout(window.animationTimeout);
+        window.animationTimeout = null;
     }
-    if (window.animationInterval) {
-        clearInterval(window.animationInterval);
-    }
+    if (window.lastMaze) visualizePattern(window.lastMaze);
     const sizeInput = document.getElementById('maze-size');
     let size = parseInt(sizeInput.value);
 
