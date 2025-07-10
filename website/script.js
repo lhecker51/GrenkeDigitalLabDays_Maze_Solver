@@ -1,6 +1,11 @@
 import { generator } from '../backend/generator.js';
 
+let currentAnimationSpeed = 500;
 
+document.getElementById('speed-slider').addEventListener('input', function() {
+    currentAnimationSpeed = parseInt(this.value);
+    document.getElementById('speed-value').textContent = `${currentAnimationSpeed}ms`;
+});
 function visualizePattern(field) {
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
@@ -147,6 +152,10 @@ document.getElementById('clear-btn').addEventListener('click', function() {
     if (window.animationInterval) {
         clearInterval(window.animationInterval);
     }
+    // Reset the slider to default
+    document.getElementById('speed-slider').value = 500;
+    document.getElementById('speed-value').textContent = '500ms';
+    currentAnimationSpeed = 500;
 });
 
 function solveAndVisualize(algorithms, maze) {
@@ -222,8 +231,10 @@ function animateSolutions(solutions, maze) {
     // Draw initial positions
     drawAllMarkers();
     
-    // Start new interval
-    window.animationInterval = setInterval(() => {
+    // Start new interval with current speed
+    window.animationInterval = setInterval(animationStep, currentAnimationSpeed);
+    
+    function animationStep() {
         // Clear only the algorithm markers area
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         visualizePattern(maze);
@@ -261,7 +272,7 @@ function animateSolutions(solutions, maze) {
         if (allFinished || currentStep > maxSteps + 10) {
             clearInterval(window.animationInterval);
         }
-    }, 500); // 500ms = 0.5 second delay
+    }
     
     function drawAllMarkers() {
         Object.keys(solutions).forEach(alg => {
