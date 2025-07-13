@@ -27,26 +27,21 @@ function visualizePattern(field) {
         const rows = field.length;
         const cols = field[0].length;
 
-        // Configuration
-        const minCellSize = 10;  // Reduced minimum cell size
-        const preferredCellSize = 30;  // Reduced preferred size
-        const maxViewportRatio = 0.8;  // Max percentage of viewport to use
+        const minCellSize = 10; 
+        const preferredCellSize = 30; 
+        const maxViewportRatio = 0.8; 
 
-        // Calculate maximum available space based on viewport
         const maxViewportWidth = window.innerWidth * maxViewportRatio;
         const maxViewportHeight = window.innerHeight * maxViewportRatio;
 
-        // Calculate cell size that fits available space
         let cellSize = Math.min(
             maxViewportWidth / cols,
             maxViewportHeight / rows,
             preferredCellSize
         );
 
-        // Enforce minimum size
         cellSize = Math.max(minCellSize, cellSize);
 
-        // Set canvas dimensions
         canvas.width = cols * cellSize;
         canvas.height = rows * cellSize;
 
@@ -70,7 +65,7 @@ function visualizePattern(field) {
                         ctx.fillStyle = '#DDAECE';
                         break;
                     default:
-                        ctx.fillStyle = '#ddd'; // Unknown characters
+                        ctx.fillStyle = '#ddd'; // 
                 }
                 ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
                 ctx.strokeStyle = '#fbf8be';
@@ -82,11 +77,9 @@ function visualizePattern(field) {
     }
 }
 
-// Handle window resizing
 window.addEventListener('resize', function () {
     const canvas = document.getElementById('canvas');
     if (canvas.width > 0 && canvas.height > 0) {
-        // Redraw the last maze if one was displayed
         const lastMaze = window.lastMaze;
         if (lastMaze) {
             visualizePattern(lastMaze);
@@ -94,7 +87,6 @@ window.addEventListener('resize', function () {
     }
 });
 
-// Handle generate button click
 document.getElementById('generate-btn').addEventListener('click', function () {
     animationRunning = false
     if (window.lastMaze) {
@@ -107,9 +99,8 @@ document.getElementById('generate-btn').addEventListener('click', function () {
     const sizeInput = document.getElementById('maze-size');
     let size = parseInt(sizeInput.value);
 
-    // Ensure size is odd and ≥5
     if (size % 2 === 0) {
-        size++; // Make it odd
+        size++;
         sizeInput.value = size;
     }
     if (size < 5) {
@@ -135,7 +126,7 @@ document.getElementById('generate-btn').addEventListener('click', function () {
                 maze = generator.generateWilson(size)
                 break
         }
-        window.lastMaze = maze; // Store for resize handling
+        window.lastMaze = maze;
         visualizePattern(maze);
     } catch (err) {
         document.getElementById('error').textContent = `Error: ${err.message}`;
@@ -166,7 +157,6 @@ document.getElementById('solve-btn').addEventListener('click', function () {
         return;
     }
 
-    // Map checkbox values to actual strategy classes
     const strategyMap = {
         'RandomWalk': RandomStrategy,
         'SemiRandom': SemiRandomStrategy,
@@ -197,7 +187,6 @@ function solveAndVisualize(algorithms, maze) {
     if (animationRunning) return;
     animationRunning = true;
 
-    // Get solutions from the actual solvers
     const solutions = {};
     algorithms.forEach(alg => {
         solutions[alg.constructor.name] = solver.solve(maze, alg);
@@ -265,7 +254,7 @@ function animateSolutions(solutions, maze) {
             return;
         }
         if (!animationRunning) {
-            redrawCanvas(); // Force cleanup redraw
+            redrawCanvas();
             return;
         }
 
@@ -273,20 +262,16 @@ function animateSolutions(solutions, maze) {
         window.animationTimeout = setTimeout(stepAnimation, currentAnimationSpeed);
     }
 
-    // Start animation
     stepAnimation();
 
 
     function redrawCanvas() {
-        // Clear and redraw maze
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         visualizePattern(maze);
 
-        // Draw paths and current positions
         Object.keys(solutions).forEach(alg => {
             if (!activeAlgorithms[alg] && paths[alg].length === 0) return;
 
-            // Draw path
             ctx.strokeStyle = ALGORITHM_COLORS[alg];
             ctx.lineWidth = cellSize * 0.2;
             ctx.beginPath();
@@ -302,8 +287,6 @@ function animateSolutions(solutions, maze) {
                 );
             }
             ctx.stroke();
-
-            // Draw current position
             if (activeAlgorithms[alg]) {
                 drawMarker(alg, positions[alg]);
             }
@@ -334,7 +317,6 @@ function animateSolutions(solutions, maze) {
     }
 }
 
-// Helper functions
 function findStartPosition(maze) {
     for (let y = 0; y < maze.length; y++) {
         for (let x = 0; x < maze[y].length; x++) {
@@ -369,16 +351,13 @@ function getNewPosition(pos, direction) {
 }
 
 function isValidPosition(pos, maze) {
-    // Check bounds
     if (pos.y < 0 || pos.y >= maze.length || pos.x < 0 || pos.x >= maze[0].length) {
         return false;
     }
 
-    // Check if it's a wall
     return maze[pos.y][pos.x] !== 'X';
 }
 
-// Add Select All functionality
 document.getElementById('select-all').addEventListener('change', function (e) {
     const checkboxes = document.querySelectorAll('input[name="algorithm"]');
     checkboxes.forEach(checkbox => {
@@ -386,7 +365,6 @@ document.getElementById('select-all').addEventListener('change', function (e) {
     });
 });
 
-// Add logic to uncheck "Select All" if any algorithm is unchecked
 const algorithmCheckboxes = document.querySelectorAll('input[name="algorithm"]');
 algorithmCheckboxes.forEach(checkbox => {
     checkbox.addEventListener('change', function () {
