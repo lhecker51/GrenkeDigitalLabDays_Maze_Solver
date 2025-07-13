@@ -45,9 +45,9 @@ function visualizePattern(field) {
         canvas.width = cols * cellSize;
         canvas.height = rows * cellSize;
 
-        // Clear canvas
+
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        // Draw maze
+
         for (let y = 0; y < rows; y++) {
             for (let x = 0; x < cols; x++) {
                 const char = field[y][x];
@@ -110,7 +110,7 @@ document.getElementById('generate-btn').addEventListener('click', function () {
 
     try {
         const generationAlgo = document.getElementById("generator-select").value
-        var maze = []
+        let maze = []
         console.log(generationAlgo)
         switch (generationAlgo) {
             case "DFS":
@@ -380,72 +380,6 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('generate-btn').click();
 });
 
-// Emilias Bereich
-
-/*
-
-document.getElementById('ranking-btn').addEventListener('click', function () {
-    try {
-        document.getElementById('error').textContent = ""
-        visualizeRanking(ranker.create_ranking())
-    } catch (err) {
-        document.getElementById('error').textContent = `Error: ${err.message}`
-    }
-})
-
-function visualizeRanking(rankingTable) {
-    const canvas = document.getElementById('ranking-sqr')
-    const ctx = canvas.getContext('2d')
-
-    const rows = rankingTable.length
-    const cols = rankingTable[0].length
-
-    const minCellSize = 10
-    const preferredCellSize = 150
-    const maxViewportRatio = 0.8
-
-    const maxViewportWidth = window.innerWidth * maxViewportRatio
-    const maxViewportHeight = window.innerHeight * maxViewportRatio
-
-    let cellSize = Math.min(
-        maxViewportWidth / cols,
-        maxViewportHeight / rows,
-        preferredCellSize
-    )
-
-    cellSize = Math.max(minCellSize, cellSize)
-
-    canvas.width = cols * cellSize
-    canvas.height = rows * cellSize
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
-
-    for (let y = 0; y < rows; y++) {
-        for (let x = 0; x < cols; x++) {
-            const content = rankingTable[y][x]
-
-            if (x === 0 && y === 0) {
-                continue
-            }
-
-            if (x === 0 || y === 0) {
-                ctx.fillStyle = '#aaaaaa'
-                ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize)
-            } else {
-                ctx.fillStyle = '#00ff00'
-                ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize)
-            }
-
-            ctx.strokeStyle = '#eeeeee'
-            ctx.strokeRect(x * cellSize, y * cellSize, cellSize, cellSize)
-
-            ctx.createTextNode(content)
-        }
-    }
-}
-
-*/
-
 document.getElementById('ranking-btn').addEventListener('click', function () {
     try {
         document.getElementById('error').textContent = ""
@@ -501,6 +435,5 @@ function generateRankingTable(rankingMatrix) {
         }
         table.appendChild(tr)
     }
-
     container.appendChild(table)
 }

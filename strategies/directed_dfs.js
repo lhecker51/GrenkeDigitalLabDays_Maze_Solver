@@ -13,7 +13,7 @@ export class DfsStrategy extends Strategy {
     calculateDirection(environment) {
         const deltas = { 'U': [0, -1], 'D': [0, 1], 'L': [-1, 0], 'R': [1, 0] }
         const dirs = { "0 -1": 'U', "0 1": 'D', "-1 0": 'L', "1 0": 'R' }
-        var order = []
+        let order
         if (this.cur[0] > this.cur[1]) {
             order = ['D', 'R', 'L', 'U']
         } else {
@@ -30,8 +30,8 @@ export class DfsStrategy extends Strategy {
             }
         }
         this.path.pop()
-        var prev = this.path[this.path.length - 1]
-        var dir = dirs[this.visitedString([prev[0] - this.cur[0], prev[1] - this.cur[1]])]
+        const prev = this.path[this.path.length - 1];
+        const dir = dirs[this.visitedString([prev[0] - this.cur[0], prev[1] - this.cur[1]])];
         this.cur = prev
         return dir
     }

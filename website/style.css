@@ -159,15 +159,13 @@ button:not([disabled]):hover {
     color: #009688;
 }
 
-/* Emilias Bereich */
-
 #ranking-btn {
     margin: 10px;
 }
 
 #ranking-container {
     display: flex;
-    justify-content: flex-start;  /* center? */
+    justify-content: flex-start;
     border: 3px solid #333;
     background: white;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
@@ -182,10 +180,6 @@ button:not([disabled]):hover {
     background-color: white;
     display: block;
     margin: 10px;
-    /*
-    width: 500px;
-    height: 500px;
-    */
 }
 @media screen and (max-width: 768px) {
     h1 {

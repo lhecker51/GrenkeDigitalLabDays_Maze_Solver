@@ -214,9 +214,6 @@ export class generator {
 
     static printField(field) {
         for (let row of field) {
-            //console.log(row.join(''));
         }
     }
 }
-//generator.generatePrim(51);
-console.log()
